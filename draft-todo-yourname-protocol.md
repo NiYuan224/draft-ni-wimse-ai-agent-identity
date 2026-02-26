@@ -23,7 +23,7 @@ title: "WIMSE Applicability for AI Agents"
 abbrev: "wimse-ai-agent"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-ni-wimse-ai-agent-identity-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -45,9 +45,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Yuan Ni
+    organization: Huawei
+    email: niyuan1@huawei.com
 
 normative:
 
