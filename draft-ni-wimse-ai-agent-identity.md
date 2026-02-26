@@ -41,10 +41,7 @@ normative:
 informative:
   I-D.ietf-wimse-arch-06:
   I-D.draft-rosenberg-cheq-00:
-  A2A-SPEC：
-   title: "Agent2Agent (A2A) Protocol Specifications"
-   date: 2025-10
-   target: https://a2a-protocol.org/latest/topics/enterprise-ready/
+
 
 
 --- abstract
