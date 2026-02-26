@@ -8,7 +8,7 @@ Intended status: Informational                          26 February 2026
 Expires: 30 August 2026
 
 
-                           TODO - Your title
+                   WIMSE Applicability for AI Agents
                   draft-todo-yourname-protocol-latest
 
 Abstract
