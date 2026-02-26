@@ -187,7 +187,6 @@ Table of Contents
 
    4.  Once issued, the proxy forwards the agent identity credentials.
 
-
      +----------------------------+
      |                            |
      |       Identity Server      |
@@ -255,8 +254,6 @@ Table of Contents
    *Open Question*: How can users effectively provide cryptographic
    signatures for agent credential requests?  Is leveraging hardware
    security features in user devices a viable and practical approach?
-
-
 
                                     (4.1)identity
                                     credential
