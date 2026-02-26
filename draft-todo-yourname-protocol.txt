@@ -2,14 +2,14 @@
 
 
 
-WG Working Group                                              Y. N. Here
-Internet-Draft                                    Your Organization Here
+WG Working Group                                                   Y. Ni
+Internet-Draft                                                    Huawei
 Intended status: Informational                          26 February 2026
 Expires: 30 August 2026
 
 
                    WIMSE Applicability for AI Agents
-                  draft-todo-yourname-protocol-latest
+                draft-ni-wimse-ai-agent-identity-latest
 
 Abstract
 
@@ -21,8 +21,8 @@ About This Document
 
    The latest revision of this draft can be found at
    https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
+   be found at https://datatracker.ietf.org/doc/draft-ni-wimse-ai-agent-
+   identity/.
 
    Discussion of this document takes place on the WG Working Group
    mailing list (mailto:WG@example.com), which is archived at
@@ -109,6 +109,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Yuan Ni
+   Huawei
+   Email: niyuan1@huawei.com
