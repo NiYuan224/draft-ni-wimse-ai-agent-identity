@@ -9,7 +9,7 @@ number:
 date:
 consensus: true
 v: 3
-area: SEC
+area: "Applications and Real-Time"
 workgroup: "Workload Identity in Multi System Environments"
 keyword:
  - WIMSE
@@ -20,8 +20,8 @@ venue:
   type: "Working Group"
   mail: "wimse@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
-  github: 
-  latest: 
+  github:
+  latest:
 
 author:
  -
@@ -84,25 +84,25 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 
 ## Bootstrapping AI Agent Identity and Credentials
    This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.	A basic workflow is shown in Figure 1.
-   
- 
+
+
   1.	As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests.
   2.	The proxy forwards these requests,  along with the evidence for verifing the operational status of the agent, to the server for processing.
   3. The server validates the evidence received from the proxy, and issues the corresponding identity credentials.
   4.	Once issued, the proxy forwards the agent identity credentials.
 
-~~~~                                                               
- 
-  +----------------------------+                         
-  |                            |                         
-  |       Identity Server      |                         
-  |                            |                         
-  +-------------- ^ + ---------+                         
-                  | |                                    
-      (2)identity | |(3)identity                         
-      credential  | | credential                         
-      request &   | |                                    
-      evidence    | |                                    
+~~~~
+
+  +----------------------------+
+  |                            |
+  |       Identity Server      |
+  |                            |
+  +-------------- ^ + ---------+
+                  | |
+      (2)identity | |(3)identity
+      credential  | | credential
+      request &   | |
+      evidence    | |
 +-----------------+-+-----------------------------------+
 |                 | | Trust Domain                      |
 |                 | |            (1)identity            |
@@ -120,7 +120,7 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 |          Hosting Operating Systems and Hardware       |
 |                                                       |
 +-------------------------------------------------------+
-                                                                                                                                                                
+
 ~~~~
 *Figure 1: Basic Architecture and the Workflow*
 
@@ -140,26 +140,26 @@ Figure 2 illustrates the extended architecture, which binds user identity to age
 The core process remains largely unchanged from steps 1 to 4. However, a critical enhancement is introduced between steps 2 and 3:
 
   4.1. Upon receiving an identity credential request, the server forwards it to the user on whose behalf the requesting agent acts. This initiates the user confirmation flow.
-  
+
   4.2. The user validates the received information. Upon approval, the user should provide a cryptographic signature, binding the user's identity to the requested agent credential.
 
 **Open Question**: How can users effectively provide cryptographic signatures for agent credential requests? Is leveraging hardware security features in user devices a viable and practical approach?
 
 ~~~~
-                                                                                                                 
-                                                         
-                                 (4.1)identity            
-                                 credential              
-  +----------------------------+ request      +------+   
-  |                            +-------------->      |   
-  |       Identity Server      <--------------+ user |   
-  |                            |(4.2)user     |      |   
-  +-------------- ^ +----------+confirmation &+------+   
-                  | |           signature                
-      (2)identity | | (3)identity                        
-      credential  | |  credential                        
-      request &   | |                                    
-      evidence    | |                                    
+
+
+                                 (4.1)identity
+                                 credential
+  +----------------------------+ request      +------+
+  |                            +-------------->      |
+  |       Identity Server      <--------------+ user |
+  |                            |(4.2)user     |      |
+  +-------------- ^ +----------+confirmation &+------+
+                  | |           signature
+      (2)identity | | (3)identity
+      credential  | |  credential
+      request &   | |
+      evidence    | |
 +-----------------+-+-----------------------------------+
 |                 | | Trust Domain                      |
 |                 | |            (1)identity            |
