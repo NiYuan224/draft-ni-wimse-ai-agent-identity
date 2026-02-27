@@ -183,8 +183,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 | |              |           | (4) |       |          |
 | +--------------+----- ^ ---+     +-------+          |
 +-----------------------+-----------------------------+
-
-
+~~~~    
 *Figure 2: Agent-Mediate Model*
 
 
