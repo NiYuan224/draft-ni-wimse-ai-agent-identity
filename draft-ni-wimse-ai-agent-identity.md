@@ -149,7 +149,9 @@ Identity binding can be intergrated into the WIMSE workflow in several ways. we 
 
 ### Agent-Mediated (Owner-Pre-Signed)
 In this model, the owner acts as a local offline endoser, which provides a signature on the Agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
+
 a. The agent generates an identity credential request and sends it to the owner.
+
 b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.
 
 The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy (steps 1 and 2), then the server verifies the request and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
@@ -175,13 +177,21 @@ The following steps are similar to the basic architecture, that is, the agent se
 ~~~~
 *Figure 2: Agent-Mediate Model*
 
+* Typical Application Scenarios: This model is ideal for local identity binding where the owner and agent operate on the same host . It supports asynchronous and offline owner confirmation, allowing the owner use local signing module (e.g., a hardware security key)  to pre-sign the agent's request. For instance, a developer using a personal hardware security key to sign an agent's request directly on their local machine. Therefore, this model obviously supports hardware-based identity binding, cryptographically anchoring the agent’s dual-identity to the specific physical device managed by the owner.
+
+* Attack Surface: The primary attack surface lies at the local environment,  focusing on two main risks. First is human-agent trust exploitation: an attacked or rogue
+ agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner’s local private keys are not protected by hardware (e.g., TPM), an attacker can forge approvals. 
+
+
 ### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
 
 Such a mechanism is intergrated in the basic architecture as shown in Figure 3. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
 
 a. The proxy intercepts the request and relays it to the owner for administrative inspection.
+
 b. The owner reviews and signs the request. It then combines the original request and the owner's signature into a new composite request to be submitted to the server, along with additional organizational materials, such as an oragnizational credential.
+
 c. The server validates the received information and issues the dual-identity credential back to the owner, who then dispatches it to the proxy.
 
 Finally, the proxy send the credential to the corresponding agents(step 4).
@@ -217,6 +227,7 @@ In this model, the owner acts as an independent verifier. The server orchestrate
 This mechanism is integrated into the basic architecture as shown in Figure 4. First, the agent sends an identity credential request to the server via the proxy (steps 1 and 2), then:
 
 a. The server pauses the process and sends a binding challenge to the owner on whose behalf the requesting agent acts. This initiates the owner confirmation flow.
+
 b. The owner reviews the challenge, signs it, and returns the response to the server.
 
 After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
@@ -239,6 +250,7 @@ After that, the server validates the owner's response, completes the identity bi
 ~~~~
 *Figure 4: Server-Mediate Model*
 
+##
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
