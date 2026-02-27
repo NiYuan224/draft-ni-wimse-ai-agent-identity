@@ -73,7 +73,7 @@ Table of Contents
        4.1.1.  Cross-organization Interaction
      4.2.  Issuance Models
        4.2.1.  Agent-Mediated (Owner-Pre-Signed)
-       4.2.2.  Owner-Mediated (Intercepted Binding)
+       4.2.2.  Owner-Mediated (Gateway Mode)
    5.  Comparison with CHEQ
    6.  Initial Trust Establishment
    7.  Security Considerations
@@ -310,19 +310,34 @@ Table of Contents
    the agent send the new composite request to the server via the proxy
    (steps 1 and 2), then the server verifies the request and issues the
    dual-identity credential to the agent via the proxy (steps 3 and 4).
-   ~~~~ +----------------------------+ | | | Identity Server | | |
-   +-------------- ^ + ---------+ | | | | (2)| |(3)
-   +-----------------+-+---------------------------------+ | Trust
-   Domain | | +-------+ | | | | | | | | | | |
-   owner | | | | | | | | | | | +--^-+--+ | | | | | | | | | |
-   (a)request| |(b)signature | | | | | | | | +--------------++ v
-   -------+ (1) +--+-v--+ | | | | ------+ | | | |Identity Proxy| Agent
-   API ------> Agent | | | | | | (4) | | | | +--------------+----- ^
-   ---+ +-------+ |
-   +-----------------------+-----------------------------+ ~~~~
+
+     +----------------------------+
+     |                            |
+     |       Identity Server      |
+     |                            |
+     +-------------- ^ + ---------+
+                     | |
+                     | |
+                  (2)| |(3)
+   +-----------------+-+---------------------------------+
+   | Trust Domain    | |              +-------+          |
+   |                 | |              |       |          |
+   |                 | |              | owner |          |
+   |                 | |              |       |          |
+   |                 | |              +--^-+--+          |
+   |                 | |                 | |             |
+   |                 | |       (a)request| |(b)signature |
+   |                 | |                 | |             |
+   | +--------------++ v -------+ (1) +--+-v--+          |
+   | |              |           ------+       |          |
+   | |Identity Proxy| Agent API ------> Agent |          |
+   | |              |           | (4) |       |          |
+   | +--------------+-----------+     +-------+          |
+   +-----------------------------------------------------+
+
    _Figure 2: Agent-Mediate Model_
 
-4.2.2.  Owner-Mediated (Intercepted Binding)
+4.2.2.  Owner-Mediated (Gateway Mode)
 
    In this model, the owner acts as the supervisory gatekeeper between
    the proxy and the server.  It inspects requests relayed by the proxy
@@ -344,6 +359,33 @@ Table of Contents
 
    Finally, the proxy send the credential to the corresponding
    agents(step 4).
+
+     +----------------------------+
+     |                            |
+     |      Identity Server       |
+     |                            |
+     +------------------^-+-------+
+                        | |
+         (b)request     | | (c)dual-identity
+         (signature)    | |  credential
+     +------------------+-v-------+
+     |                            |
+     |           Owner            |
+     |                            |
+     +------------------^-+-------+
+                        | |
+         (a)request     | | (d)dual-identity credential
+   +--------------------+-+--------------------------------+
+   | Trust Domain       | |                                |
+   | +--------------+---+-v-------+     (1)      +-------+ |
+   | |              |             <---------------       | |
+   | |Identity Proxy|  Agent API  |--------------> Agent | |
+   | |              |             |     (4)      |       | |
+   | +--------------+-------------+              +-------+ |
+   |                                                       |
+   +-------------------------------------------------------+
+
+   _Figure 3: Owner-Mediate Model_
 
    Figure 2 illustrates the extended architecture, which binds user
    identity to agent identity.  This architecture extends the basic
