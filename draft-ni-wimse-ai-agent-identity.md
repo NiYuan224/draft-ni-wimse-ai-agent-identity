@@ -135,20 +135,62 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request.
 
 
-# Identity Binding
+# Identity Binding Extensions for WIMSE
 In the basic WIMSE architecture, the workload identity ensures a trusted software entity is running in a secure envirionment. However, AI agents often operates on behalf of a human user or an organization. Consequently, an Agent requires a credential that cryptographically binds its identity to its Owner’s identity. This dual-identity credential provides a necessary foundation for access control and accountability. This section describes the necessity of dual-identity credential through two representative use cases and defines three operational models to issue it.
 
 ## Use Cases
-1. Network Access Control in Campus
+### Network Access Control in Campus
 
 Campus administrators require to authenticate AI agents before granting access to internal network via authentication protocols such as IEEE 802.1X (e.g., using EAP-TLS). In this scenario, the agent acts as the Supplicant, and Authentication Server must verify the credential of the agents and determine its network privileges. A single-identity credential only allows the Authentication Server to identify the agent itself. Without further information, Authentication Server may treat the agent as a guest, providing only limited public access or rejecting the request to protect sensitive zones. A dual-identity credential allows the Authentication Server to verify both the agent's identity and the specific user or department it represents. For instance, an agent representing Alice from the R&D department can be identified as a trusted entity. This enables the network to implement user-specific segmentation, such as automatically assigning the agent to the R&D VLAN rather than a guest network.
 
-2. Cross-organization Interaction
+### Cross-organization Interaction
 
 In collaborative enterprise environments, it is essential to ensure that any agent requesting services is explicitly approved by its organization. This requirement spans the entire credential lifecycle, from issuance to interaction.
 
 * Issuance: When an agent requests an identity credential, the identity server may require organization oversight. By binding the agent's identity credential request to its corresponding organization, identity server can verify the organizational approval before issuing the credential.
 * Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries a organizational approval, which provides a strong basis for trust, ensuring both Accountability and Traceability for all cross-organization interactions.
+
+## Issuance Models
+Identity binding can be intergrated into the WIMSE workflow in several ways, depending on the interaction path of the owner with the agent, server, and proxy.
+
+### Agent-Mediated (Owner-Pre-Signed)
+In this model, the owner acts as a local offline endoser, which provides a signature on the Agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
+a. The agent generates an identity credential request and sends it to the Owner.
+b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.
+
+The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy, then the server verifies the request and issues the dual-identity credential to the agent via the proxy.
+~~~~
+
+  +----------------------------+                                          
+  |                            |                                          
+  |       Identity Server      |                                          
+  |                            |                                          
+  +-------------- ^ + ---------+                                          
+                  | |                                                     
+                  | |                                                     
+               (2)| |(3)                                                  
++-----------------+-+---------------------------------+                   
+| Trust Domain    | |              +-------+          |                   
+|                 | |              |       |          |                   
+|                 | |              | owner |          |                   
+|                 | |              |       |          |                   
+|                 | |              +--^-+--+          |                   
+|                 | |                 | |             |                   
+|                 | |       (a)request| |(b)signature |                   
+|                 | |                 | |             |                   
+| +--------------++ v -------+ (1) +--+-v--+          |                   
+| |              |           ------+       |          |                   
+| |Identity Proxy| Agent API ------> Agent |          |                   
+| |              |           | (4) |       |          |                   
+| +--------------+----- ^ ---+     +-------+          |                   
+|-----------------------+-----------------------------+                   
+       
+~~~~
+
+*Figure 2: Agent-Mediate Model*
+
+
+
 
 Figure 2 illustrates the extended architecture, which binds user identity to agent identity. This architecture extends the basic workflow described in Section 2.2.
 
@@ -160,42 +202,6 @@ The core process remains largely unchanged from steps 1 to 4. However, a critica
 
 **Open Question**: How can users effectively provide cryptographic signatures for agent credential requests? Is leveraging hardware security features in user devices a viable and practical approach?
 
-~~~~
-
-
-                                 (4.1)identity
-                                 credential
-  +----------------------------+ request      +------+
-  |                            +-------------->      |
-  |       Identity Server      <--------------+ user |
-  |                            |(4.2)user     |      |
-  +-------------- ^ +----------+confirmation &+------+
-                  | |           signature
-      (2)identity | | (3)identity
-      credential  | |  credential
-      request &   | |
-      evidence    | |
-+-----------------+-+-----------------------------------+
-|                 | | Trust Domain                      |
-|                 | |            (1)identity            |
-|                 | |            credential             |
-| +--------------++ v ---------+ request      +-------+ |
-| |              |             <--------------+       | |
-| |Identity Proxy|  Agent API  +--------------> Agent | |
-| |              |             | (4)identity  |       | |
-| +--------------+----- ^ -----+ credential   +-------+ |
-|                       |                               |
-|              evidence |                               |
-|                       |                               |
-+-----------------------+-------------------------------+
-|                                                       |
-|          Hosting Operating Systems and Hardware       |
-|                                                       |
-+-------------------------------------------------------+
-
-~~~~
-
-*Figure 2: Extended Architecture and the Workflow*
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
