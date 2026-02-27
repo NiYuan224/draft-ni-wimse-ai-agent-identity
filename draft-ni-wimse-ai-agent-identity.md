@@ -219,6 +219,10 @@ Figure 3 shows a one-to-one mapping case between the owner and the proxy. In thi
 ~~~~
 *Figure 3: Owner-Mediate Model*
 
+* Typical Application Scenarios: This model is ideal for enterprise governance. Since the owner sits in the middle, acting like a middlebox to ensure no request reaches server unless it complies with enterprise security policies and compliance requirements. It is particularly suitable for hierarchical environments where the owner acts as a centralized gateway for multiple proxies.
+
+* Attack Surface: The owner becomes a high-value target and a single point of failure. If it is compromised, an attacker can forge approvals for any agent across the managed proxies. To mitigate this, mutual authentication and cryptographic integrity are mandatory between proxies and the owner. Furthermore, as a centralized gateway, the owner is vulnerable to Denial-of-Service attacks. It is essential to implement rate limiting and request queuing.
+
 ### Server-Mediated (Challenge-Response)
 In this model, the owner acts as an independent verifier. The server orchestrates the binding phase by contacting the owner as a separate step in the issuance logic, decoupling the binding from the agent's request.
 
@@ -248,7 +252,6 @@ After that, the server validates the owner's response, completes the identity bi
 ~~~~
 *Figure 4: Server-Mediate Model*
 
-##
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
