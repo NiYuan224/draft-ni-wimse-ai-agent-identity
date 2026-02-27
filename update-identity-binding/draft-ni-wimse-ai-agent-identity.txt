@@ -68,8 +68,11 @@ Table of Contents
    3.  Architecture
      3.1.  Bootstrapping AI Agent Identity and Credentials
      3.2.  Attestation
-   4.  Identity Binding
+   4.  Identity Binding Extensions for WIMSE
      4.1.  Use Cases
+       4.1.1.  Cross-organization Interaction
+     4.2.  Issuance Models
+       4.2.1.  Agent-Mediated (Owner-Pre-Signed)
    5.  Comparison with CHEQ
    6.  Initial Trust Establishment
    7.  Security Considerations
@@ -230,7 +233,7 @@ Table of Contents
    decide whether or not to issue the identity credential of an agent,
    whether it is a bootstrapping or a renewal request.
 
-4.  Identity Binding
+4.  Identity Binding Extensions for WIMSE
 
    In the basic WIMSE architecture, the workload identity ensures a
    trusted software entity is running in a secure envirionment.
@@ -244,7 +247,7 @@ Table of Contents
 
 4.1.  Use Cases
 
-   1.  Network Access Control in Campus
+   ### Network Access Control in Campus
 
    Campus administrators require to authenticate AI agents before
    granting access to internal network via authentication protocols such
@@ -263,7 +266,7 @@ Table of Contents
    automatically assigning the agent to the R&D VLAN rather than a guest
    network.
 
-   1.  Cross-organization Interaction
+4.1.1.  Cross-organization Interaction
 
    In collaborative enterprise environments, it is essential to ensure
    that any agent requesting services is explicitly approved by its
@@ -285,6 +288,39 @@ Table of Contents
       Accountability and Traceability for all cross-organization
       interactions.
 
+4.2.  Issuance Models
+
+   Identity binding can be intergrated into the WIMSE workflow in
+   several ways, depending on the interaction path of the owner with the
+   agent, server, and proxy.
+
+4.2.1.  Agent-Mediated (Owner-Pre-Signed)
+
+   In this model, the owner acts as a local offline endoser, which
+   provides a signature on the Agent's request before it is submitted to
+   the proxy.  The identity binding phase, consisting of the following
+   two steps, is added prior to the standard issuance flow defined in
+   Figure 1: a.  The agent generates an identity credential request and
+   sends it to the Owner. b.  The owner signs the request and returns
+   the signature to the agent.  The agent then combines the original
+   request and the owner's signature into a new composite request.
+
+   The following steps are similar to the basic architecture, that is,
+   the agent send the new composite request to the server via the proxy,
+   then the server verifies the request and issues the dual-identity
+   credential to the agent via the proxy. ~~~~
+   +----------------------------+ | | | Identity Server | | |
+   +-------------- ^ + ---------+ | | | | (2)| |(3)
+   +-----------------+-+---------------------------------+ | Trust
+   Domain | | +-------+ | | | | | | | | | | |
+   owner | | | | | | | | | | | +--^-+--+ | | | | | | | | | |
+   (a)request| |(b)signature | | | | | | | | +--------------++ v
+   -------+ (1) +--+-v--+ | | | | ------+ | | | |Identity Proxy| Agent
+   API ------> Agent | | | | | | (4) | | | | +--------------+----- ^
+   ---+ +-------+ |
+   +-----------------------+-----------------------------+ ~~~~
+   _Figure 2: Agent-Mediate Model_
+
    Figure 2 illustrates the extended architecture, which binds user
    identity to agent identity.  This architecture extends the basic
    workflow described in Section 2.2.
@@ -303,38 +339,6 @@ Table of Contents
    *Open Question*: How can users effectively provide cryptographic
    signatures for agent credential requests?  Is leveraging hardware
    security features in user devices a viable and practical approach?
-
-                                    (4.1)identity
-                                    credential
-     +----------------------------+ request      +------+
-     |                            +-------------->      |
-     |       Identity Server      <--------------+ user |
-     |                            |(4.2)user     |      |
-     +-------------- ^ +----------+confirmation &+------+
-                     | |           signature
-         (2)identity | | (3)identity
-         credential  | |  credential
-         request &   | |
-         evidence    | |
-   +-----------------+-+-----------------------------------+
-   |                 | | Trust Domain                      |
-   |                 | |            (1)identity            |
-   |                 | |            credential             |
-   | +--------------++ v ---------+ request      +-------+ |
-   | |              |             <--------------+       | |
-   | |Identity Proxy|  Agent API  +--------------> Agent | |
-   | |              |             | (4)identity  |       | |
-   | +--------------+----- ^ -----+ credential   +-------+ |
-   |                       |                               |
-   |              evidence |                               |
-   |                       |                               |
-   +-----------------------+-------------------------------+
-   |                                                       |
-   |          Hosting Operating Systems and Hardware       |
-   |                                                       |
-   +-------------------------------------------------------+
-
-   _Figure 2: Extended Architecture and the Workflow_
 
 5.  Comparison with CHEQ
 
