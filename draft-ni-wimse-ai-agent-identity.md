@@ -181,12 +181,12 @@ The following steps are similar to the basic architecture, that is, the agent se
 | |              |           ------+       |          |
 | |Identity Proxy| Agent API ------> Agent |          |
 | |              |           | (4) |       |          |
-| +--------------+----- ^ ---+     +-------+          |
-+-----------------------+-----------------------------+
+| +--------------+-----------+     +-------+          |
++-----------------------------------------------------+
 ~~~~
 *Figure 2: Agent-Mediate Model*
 
-### Owner-Mediated (Intercepted Binding)
+### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
 
 Such a mechanism is intergrated in the basic architecture as follows. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
@@ -197,7 +197,33 @@ c. The server validates the received information and issues the dual-identity cr
 
 Finally, the proxy send the credential to the corresponding agents(step 4).
 
-
+~~~~
+  +----------------------------+                         
+  |                            |                         
+  |      Identity Server       |                         
+  |                            |                         
+  +------------------^-+-------+                         
+                     | |                                 
+      (b)request     | | (c)dual-identity                
+      (signature)    | |  credential                     
+  +------------------+-v-------+                         
+  |                            |                         
+  |           Owner            |                         
+  |                            |                         
+  +------------------^-+-------+                         
+                     | |                                 
+      (a)request     | | (d)dual-identity credential     
++--------------------+-+--------------------------------+
+| Trust Domain       | |                                |
+| +--------------+---+-v-------+     (1)      +-------+ |
+| |              |             <---------------       | |
+| |Identity Proxy|  Agent API  |--------------> Agent | |
+| |              |             |     (4)      |       | |
+| +--------------+-------------+              +-------+ |
+|                                                       |
++-------------------------------------------------------+
+~~~~
+*Figure 3: Owner-Mediate Model*
 
 Figure 2 illustrates the extended architecture, which binds user identity to agent identity. This architecture extends the basic workflow described in Section 2.2.
 
