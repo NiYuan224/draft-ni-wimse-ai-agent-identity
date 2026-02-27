@@ -106,7 +106,7 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
       request &   | |
       evidence    | |
 +-----------------+-+-----------------------------------+
-|                 | | Trust Domain                      |
+|  Trust Domain   | |                                   |
 |                 | |            (1)identity            |
 |                 | |            credential             |
 | +--------------++ v ---------+ request      +-------+ |
@@ -220,6 +220,25 @@ a. The server pauses the process and sends a binding challenge to the owner on w
 b. The owner reviews the challenge, signs it, and returns the response to the server.
 
 After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
+
+~~~~
+  +----------------------------+              +---- --+
+  |                            +-------------->       |
+  |       Identity Server      <--------------+ Owner |
+  |                            |              |       |
+  +-------------- ^ +----------+              +---- --+
+               (2)| |(3)
++-----------------+-+-----------------------------------+
+| Trust Domain    | |                                   |
+| +---------------+-v----------+     (1)      +-------+ |
+| |              |             |--------------+       | |
+| |Identity Proxy|  Agent API  |--------------> Agent | |
+| |              |             |     (4)      |       | |
+| +----------------------------+              +-------+ |
++-------------------------------------------------------+
+~~~~
+*Figure 4: Server-Mediate Model*
+
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
