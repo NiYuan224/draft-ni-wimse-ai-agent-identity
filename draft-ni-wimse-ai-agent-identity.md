@@ -159,7 +159,7 @@ a. The agent generates an identity credential request and sends it to the Owner.
 b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.
 
 The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy, then the server verifies the request and issues the dual-identity credential to the agent via the proxy.
-~~~~                                       
+~~~~
   +----------------------------+
   |                            |
   |       Identity Server      |
@@ -183,7 +183,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 | |              |           | (4) |       |          |
 | +--------------+----- ^ ---+     +-------+          |
 +-----------------------+-----------------------------+
-~~~~    
+~~~~
 *Figure 2: Agent-Mediate Model*
 
 
