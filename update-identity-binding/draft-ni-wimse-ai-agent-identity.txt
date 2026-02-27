@@ -205,7 +205,7 @@ Table of Contents
          request &   | |
          evidence    | |
    +-----------------+-+-----------------------------------+
-   |                 | | Trust Domain                      |
+   |  Trust Domain   | |                                   |
    |                 | |            (1)identity            |
    |                 | |            credential             |
    | +--------------++ v ---------+ request      +-------+ |
@@ -398,6 +398,23 @@ Table of Contents
    After that, the server validates the owner's response, completes the
    identity binding, and issues the dual-identity credential to the
    agent via the proxy (steps 3 and 4).
+
+     +----------------------------+              +---- --+
+     |                            +-------------->       |
+     |       Identity Server      <--------------+ Owner |
+     |                            |              |       |
+     +-------------- ^ +----------+              +---- --+
+                  (2)| |(3)
+   +-----------------+-+-----------------------------------+
+   | Trust Domain    | |                                   |
+   | +---------------+-v----------+     (1)      +-------+ |
+   | |              |             |--------------+       | |
+   | |Identity Proxy|  Agent API  |--------------> Agent | |
+   | |              |             |     (4)      |       | |
+   | +----------------------------+              +-------+ |
+   +-------------------------------------------------------+
+
+   _Figure 4: Server-Mediate Model_
 
 5.  Comparison with CHEQ
 

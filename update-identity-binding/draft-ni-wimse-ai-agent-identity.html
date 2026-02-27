@@ -1328,7 +1328,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       request &amp;   | |
       evidence    | |
 +-----------------+-+-----------------------------------+
-|                 | | Trust Domain                      |
+|  Trust Domain   | |                                   |
 |                 | |            (1)identity            |
 |                 | |            credential             |
 | +--------------++ v ---------+ request      +-------+ |
@@ -1474,6 +1474,25 @@ c. The server validates the received information and issues the dual-identity cr
 <p id="section-4.2.3-3">a. The server pauses the process and sends a binding challenge to the owner on whose behalf the requesting agent acts. This initiates the owner confirmation flow.
 b. The owner reviews the challenge, signs it, and returns the response to the server.<a href="#section-4.2.3-3" class="pilcrow">¶</a></p>
 <p id="section-4.2.3-4">After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).<a href="#section-4.2.3-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.3-5">
+<pre>
+  +----------------------------+              +---- --+
+  |                            +--------------&gt;       |
+  |       Identity Server      &lt;--------------+ Owner |
+  |                            |              |       |
+  +-------------- ^ +----------+              +---- --+
+               (2)| |(3)
++-----------------+-+-----------------------------------+
+| Trust Domain    | |                                   |
+| +---------------+-v----------+     (1)      +-------+ |
+| |              |             |--------------+       | |
+| |Identity Proxy|  Agent API  |--------------&gt; Agent | |
+| |              |             |     (4)      |       | |
+| +----------------------------+              +-------+ |
++-------------------------------------------------------+
+</pre><a href="#section-4.2.3-5" class="pilcrow">¶</a>
+</div>
+<p id="section-4.2.3-6"><em>Figure 4: Server-Mediate Model</em><a href="#section-4.2.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
