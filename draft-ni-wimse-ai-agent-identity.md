@@ -155,10 +155,10 @@ Identity binding can be intergrated into the WIMSE workflow in several ways, dep
 
 ### Agent-Mediated (Owner-Pre-Signed)
 In this model, the owner acts as a local offline endoser, which provides a signature on the Agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
-a. The agent generates an identity credential request and sends it to the Owner.
+a. The agent generates an identity credential request and sends it to the owner.
 b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.
 
-The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy, then the server verifies the request and issues the dual-identity credential to the agent via the proxy.
+The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy (steps 1 and 2), then the server verifies the request and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
 ~~~~
   +----------------------------+
   |                            |
@@ -186,6 +186,16 @@ The following steps are similar to the basic architecture, that is, the agent se
 ~~~~
 *Figure 2: Agent-Mediate Model*
 
+### Owner-Mediated (Intercepted Binding)
+In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
+
+Such a mechanism is intergrated in the basic architecture as follows. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
+
+a. The proxy intercepts the request and relays it to the owner for administrative inspection.
+b. The owner reviews and signs the request. It then combines the original request and the owner's signature into a new composite request to be submitted to the server, along with additional organizational materials, such as an oragnizational credential.
+c. The server validates the received information and issues the dual-identity credential back to the owner, who then dispatches it to the proxy.
+
+Finally, the proxy send the credential to the corresponding agents(step 4).
 
 
 
