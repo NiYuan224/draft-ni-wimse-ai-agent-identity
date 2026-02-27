@@ -199,21 +199,21 @@ Finally, the proxy send the credential to the corresponding agents(step 4).
 
 ~~~~
   +----------------------------+                         
-  |                            |                         
-  |      Identity Server       |                         
-  |                            |                         
-  +------------------^-+-------+                         
-                     | |                                 
-      (b)request     | | (c)dual-identity                
-      (signature)    | |  credential                     
-  +------------------+-v-------+                         
-  |                            |                         
-  |           Owner            |                         
-  |                            |                         
-  +------------------^-+-------+                         
-                     | |                                 
-      (a)request     | | (d)dual-identity credential     
-+--------------------+-+--------------------------------+
+  +----------------------------+
+  |                            |
+  |      Identity Server       |
+  |                            |
+  +------------------^-+-------+
+                     | |
+      (b)request     | | (c)dual-identity
+      (signature)    | |  credential
+  +------------------+-v-------+
+  |                            |
+  |           Owner            |
+  |                            |
+  +------------------^-+-------+
+                     | |
+      (a)request     | | (d)dual-identity credential
 | Trust Domain       | |                                |
 | +--------------+---+-v-------+     (1)      +-------+ |
 | |              |             <---------------       | |
