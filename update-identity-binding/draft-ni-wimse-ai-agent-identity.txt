@@ -405,6 +405,22 @@ Table of Contents
 
    _Figure 3: Owner-Mediate Model_
 
+   *  Typical Application Scenarios: This model is ideal for enterprise
+      governance.  Since the owner sits in the middle, acting like a
+      middlebox to ensure no request reaches server unless it complies
+      with enterprise security policies and compliance requirements.  It
+      is particularly suitable for hierarchical environments where the
+      owner acts as a centralized gateway for multiple proxies.
+
+   *  Attack Surface: The owner becomes a high-value target and a single
+      point of failure.  If it is compromised, an attacker can forge
+      approvals for any agent across the managed proxies.  To mitigate
+      this, mutual authentication and cryptographic integrity are
+      mandatory between proxies and the owner.  Furthermore, as a
+      centralized gateway, the owner is vulnerable to Denial-of-Service
+      attacks.  It is essential to implement rate limiting and request
+      queuing.
+
 4.2.3.  Server-Mediated (Challenge-Response)
 
    In this model, the owner acts as an independent verifier.  The server
@@ -443,8 +459,6 @@ Table of Contents
    +-------------------------------------------------------+
 
    _Figure 4: Server-Mediate Model_
-
-   ##
 
 5.  Comparison with CHEQ
 
