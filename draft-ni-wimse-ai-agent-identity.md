@@ -98,9 +98,7 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 ~~~~
 
   +----------------------------+
-  |                            |
   |       Identity Server      |
-  |                            |
   +-------------- ^ + ---------+
                   | |
       (2)identity | |(3)identity
@@ -116,13 +114,9 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 | |Identity Proxy|  Agent API  +--------------> Agent | |
 | |              |             | (4)identity  |       | |
 | +--------------+----- ^ -----+ credential   +-------+ |
-|                       |                               |
 |              evidence |                               |
-|                       |                               |
 +-----------------------+-------------------------------+
-|                                                       |
 |          Hosting Operating Systems and Hardware       |
-|                                                       |
 +-------------------------------------------------------+
 
 ~~~~
@@ -151,7 +145,7 @@ In collaborative enterprise environments, it is essential to ensure that any age
 * Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries a organizational approval, which provides a strong basis for trust, ensuring both Accountability and Traceability for all cross-organization interactions.
 
 ## Issuance Models
-Identity binding can be intergrated into the WIMSE workflow in several ways, depending on the interaction path of the owner with the agent, server, and proxy.
+Identity binding can be intergrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound.
 
 ### Agent-Mediated (Owner-Pre-Signed)
 In this model, the owner acts as a local offline endoser, which provides a signature on the Agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
@@ -162,18 +156,12 @@ The following steps are similar to the basic architecture, that is, the agent se
 
 ~~~~
   +----------------------------+
-  |                            |
   |       Identity Server      |
-  |                            |
   +-------------- ^ + ---------+
-                  | |
-                  | |
                (2)| |(3)
 +-----------------+-+---------------------------------+
 | Trust Domain    | |              +-------+          |
-|                 | |              |       |          |
 |                 | |              | owner |          |
-|                 | |              |       |          |
 |                 | |              +--^-+--+          |
 |                 | |                 | |             |
 |                 | |       (a)request| |(b)signature |
@@ -190,7 +178,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 ### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
 
-Such a mechanism is intergrated in the basic architecture as follows. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
+Such a mechanism is intergrated in the basic architecture as shown in Figure 3. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
 
 a. The proxy intercepts the request and relays it to the owner for administrative inspection.
 b. The owner reviews and signs the request. It then combines the original request and the owner's signature into a new composite request to be submitted to the server, along with additional organizational materials, such as an oragnizational credential.
@@ -198,22 +186,20 @@ c. The server validates the received information and issues the dual-identity cr
 
 Finally, the proxy send the credential to the corresponding agents(step 4).
 
+Figure 3 shows a one-to-one mapping case between the owner and the proxy. In this case, the function of owner can be integrated directly into the proxy, collapsing the hierarchy into a single entity to simplify the deployment. Moreover, this model also supports a one-to-many topology, allowing a central owner to manage multiple proxies across various trust domains. 
+
 ~~~~
   +----------------------------+
-  |                            |
   |      Identity Server       |
-  |                            |
   +------------------^-+-------+
                      | |
       (b)request     | | (c)dual-identity
       (signature)    | |  credential
   +------------------+-v-------+
-  |                            |
   |           Owner            |
-  |                            |
   +------------------^-+-------+
                      | |
-      (a)request     | | (d)dual-identity credential
+      (a)request     | | (c)
 +--------------------+-+--------------------------------+
 | Trust Domain       | |                                |
 | +--------------+---+-v-------+     (1)      +-------+ |
@@ -221,21 +207,19 @@ Finally, the proxy send the credential to the corresponding agents(step 4).
 | |Identity Proxy|  Agent API  |--------------> Agent | |
 | |              |             |     (4)      |       | |
 | +--------------+-------------+              +-------+ |
-|                                                       |
 +-------------------------------------------------------+
 ~~~~
 *Figure 3: Owner-Mediate Model*
 
-Figure 2 illustrates the extended architecture, which binds user identity to agent identity. This architecture extends the basic workflow described in Section 2.2.
+### Server-Mediated (Challenge-Response)
+In this model, the owner acts as an independent verifier. The server orchestrates the binding phase by contacting the owner as a separate step in the issuance logic, decoupling the binding from the agent's request.
 
-The core process remains largely unchanged from steps 1 to 4. However, a critical enhancement is introduced between steps 2 and 3:
+This mechanism is integrated into the basic architecture as shown in Figure 4. First, the agent sends an identity credential request to the server via the proxy (steps 1 and 2), then:
 
-  4.1. Upon receiving an identity credential request, the server forwards it to the user on whose behalf the requesting agent acts. This initiates the user confirmation flow.
+a. The server pauses the process and sends a binding challenge to the owner on whose behalf the requesting agent acts. This initiates the owner confirmation flow.
+b. The owner reviews the challenge, signs it, and returns the response to the server.
 
-  4.2. The user validates the received information. Upon approval, the user should provide a cryptographic signature, binding the user's identity to the requested agent credential.
-
-**Open Question**: How can users effectively provide cryptographic signatures for agent credential requests? Is leveraging hardware security features in user devices a viable and practical approach?
-
+After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
