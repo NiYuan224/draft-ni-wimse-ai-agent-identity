@@ -212,7 +212,7 @@ Finally, the proxy send the credential to the corresponding agents(step 4).
   |           Owner            |
   |                            |
   +------------------^-+-------+
-                     | | 
+                     | |
       (a)request     | | (d)dual-identity credential
 +--------------------+-+--------------------------------+
 | Trust Domain       | |                                |
