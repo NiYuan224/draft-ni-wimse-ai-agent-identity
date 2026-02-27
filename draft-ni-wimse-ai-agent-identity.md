@@ -159,6 +159,7 @@ a. The agent generates an identity credential request and sends it to the owner.
 b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.
 
 The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy (steps 1 and 2), then the server verifies the request and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
+
 ~~~~
   +----------------------------+
   |                            |
@@ -198,7 +199,6 @@ c. The server validates the received information and issues the dual-identity cr
 Finally, the proxy send the credential to the corresponding agents(step 4).
 
 ~~~~
-  +----------------------------+                         
   +----------------------------+
   |                            |
   |      Identity Server       |
@@ -212,8 +212,9 @@ Finally, the proxy send the credential to the corresponding agents(step 4).
   |           Owner            |
   |                            |
   +------------------^-+-------+
-                     | |
+                     | | 
       (a)request     | | (d)dual-identity credential
++--------------------+-+--------------------------------+
 | Trust Domain       | |                                |
 | +--------------+---+-v-------+     (1)      +-------+ |
 | |              |             <---------------       | |
