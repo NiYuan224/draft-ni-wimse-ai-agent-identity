@@ -252,6 +252,9 @@ After that, the server validates the owner's response, completes the identity bi
 ~~~~
 *Figure 4: Server-Mediate Model*
 
+* Typical Application Scenarios: This model is suitable for scenarios requiring independent and real-time confirmation from an owner who is not involved in the initial request path. For instance, An agent is deployed by a service provider on behalf of an organization. When the agent requests an identity credential, the server initiates an out-of-band verification directly to the administrative center. 
+
+* Attack Surface: The primary risk lies in the out-of-band channel. Without nonces or mutual authentication, an attacker could intercept this channel to perform response forgery or replay attacks.
 
 # Comparison with CHEQ
 While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
