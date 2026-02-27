@@ -186,7 +186,7 @@ c. The server validates the received information and issues the dual-identity cr
 
 Finally, the proxy send the credential to the corresponding agents(step 4).
 
-Figure 3 shows a one-to-one mapping case between the owner and the proxy. In this case, the function of owner can be integrated directly into the proxy, collapsing the hierarchy into a single entity to simplify the deployment. Moreover, this model also supports a one-to-many topology, allowing a central owner to manage multiple proxies across various trust domains. 
+Figure 3 shows a one-to-one mapping case between the owner and the proxy. In this case, the function of owner can be integrated directly into the proxy, collapsing the hierarchy into a single entity to simplify the deployment. Moreover, this model also supports a one-to-many topology, allowing a central owner to manage multiple proxies across various trust domains.
 
 ~~~~
   +----------------------------+
