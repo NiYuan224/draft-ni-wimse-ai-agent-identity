@@ -179,9 +179,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 
 * Typical Application Scenarios: This model is ideal for local identity binding where the owner and agent operate on the same host . It supports asynchronous and offline owner confirmation, allowing the owner use local signing module (e.g., a hardware security key)  to pre-sign the agent's request. For instance, a developer using a personal hardware security key to sign an agent's request directly on their local machine. Therefore, this model obviously supports hardware-based identity binding, cryptographically anchoring the agent’s dual-identity to the specific physical device managed by the owner.
 
-* Attack Surface: The primary attack surface lies at the local environment,  focusing on two main risks. First is human-agent trust exploitation: an attacked or rogue
- agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner’s local private keys are not protected by hardware (e.g., TPM), an attacker can forge approvals. 
- agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner’s local private keys are not protected by hardware (e.g., TPM), an attacker can forge approvals.
+* Attack Surface: The primary attack surface lies at the local environment,  focusing on two main risks. First is human-agent trust exploitation: an attacked or rogue agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner’s local private keys are not protected by hardware (e.g., TPM), an attacker can forge confirmations.
 
 ### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
