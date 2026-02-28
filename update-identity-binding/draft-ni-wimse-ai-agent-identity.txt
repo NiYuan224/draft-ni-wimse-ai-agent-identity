@@ -171,12 +171,12 @@ Table of Contents
 
    In addition, this document introduces the following new terms: *
    Owner: An entity (individual or organization) responsible for the an
-   agent, which can provide a cryptographic signature to bind the AI
-   Agent identity to a specific principal.  Logically, an owner may
-   manifest in various forms, including a natural person (e.g., via a
-   manual confirmation process), a physical device (e.g., a hardware
-   security module), or an automated policy engine that grants approval
-   based on pre-defined security policies. * Dual-Identity Credential: A
+   agent, which can provide a cryptographic signature to bind the agent
+   identity to a specific principal.  Logically, an owner may manifest
+   in various forms, including a natural person (e.g., via a manual
+   confirmation process), a physical device (e.g., a hardware security
+   module), or an automated policy engine that grants approval based on
+   pre-defined security policies. * Dual-Identity Credential: A
    credential that contains the identifiers and associated public keys
    of both an agent and its owner.  The credential is cryptographically
    bound to both entities.
@@ -291,7 +291,7 @@ Table of Contents
       A2A protocol[A2A-SPEC] and WIMSE
       architecture[I-D.ietf-wimse-arch-06].  A dual-identity credential
       carries an organizational approval, which provides a strong basis
-      for trust, ensuring both accountability and traceability for all
+      for trust, ensuring both accountability and traceability for
       cross-organization interactions.
 
 4.2.  Issuance Models
