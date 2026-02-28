@@ -243,8 +243,8 @@ Table of Contents
 4.  Identity Binding Extensions for WIMSE
 
    In the basic WIMSE architecture, the workload identity ensures a
-   trusted software entity is running in a secure envirionment.
-   However, agents often operates on behalf of a human user or an
+   trusted software entity is running in a secure environment.  However,
+   the agent often operates on behalf of a human user or an
    organization.  Consequently, an agent requires a credential that
    cryptographically binds its identity to its owner’s identity.  This
    dual-identity credential provides a necessary foundation for access
@@ -259,7 +259,7 @@ Table of Contents
    Campus administrators require authentication of agents before
    granting access to internal network via authentication protocols such
    as IEEE 802.1X (e.g., using EAP-TLS).  In this scenario, the agent
-   acts as the Supplicant, and Authentication Server must verify the
+   acts as the Supplicant, and the Authentication Server must verify the
    agent's credential and determine its network privileges.  A single-
    identity credential only allows the Authentication Server to identify
    the agent itself.  Without further information, Authentication Server
@@ -280,7 +280,7 @@ Table of Contents
    lifecycle, from issuance to interaction.
 
    *  Issuance: When an agent requests an identity credential, the
-      identity server may require organization oversight.  By binding
+      identity server may require organizational oversight.  By binding
       the agent's identity credential request to its corresponding
       organization, the server can verify the organizational approval
       before issuing the credential.
@@ -296,20 +296,20 @@ Table of Contents
 
 4.2.  Issuance Models
 
-   Identity binding can be intergrated into the WIMSE workflow in
-   several ways. we introduce the following three models according to
-   the mediation point where the agent's identity and organizational
+   Identity binding can be integrated into the WIMSE workflow in several
+   ways. we introduce the following three models according to the
+   mediation point where the agent's identity and organizational
    authority are cryptographically bound.  Before initiating the dual-
    identity issuance flow, a pre-established trust relationship must
-   exist, where the Identity Server is provisioned with Trust Anchors
+   exist, where the identity server is provisioned with trust anchors
    (e.g., public keys, CA certificates, or hardware-backed credentials)
-   to verify the Owner’s signature.  The mechanism by which these trust
+   to verify the owner’s signature.  The mechanism by which these trust
    anchors are established, distributed, or updated is out of scope of
    this document.
 
 4.2.1.  Agent-Mediated (Owner-Pre-Signed)
 
-   In this model, the owner acts as a local offline endoser, which
+   In this model, the owner acts as a local offline approvar, which
    provides a signature on the agent's request before it is submitted to
    the proxy.  The identity binding phase, consisting of the following
    two steps, is added prior to the standard issuance flow defined in
