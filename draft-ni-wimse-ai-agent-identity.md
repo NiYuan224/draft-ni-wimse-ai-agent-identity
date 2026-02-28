@@ -109,8 +109,7 @@ In addition, this document introduces the following new terms:
       request &   | |
       evidence    | |
 +-----------------+-+-----------------------------------+
-|  Trust Domain   | |                                   |
-|                 | |            (1)identity            |
+|  Trust Domain   | |            (1)identity            |
 |                 | |            credential             |
 | +--------------++ v ---------+ request      +-------+ |
 | |              |             <--------------+       | |
