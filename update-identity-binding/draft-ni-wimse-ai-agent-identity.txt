@@ -211,8 +211,7 @@ Table of Contents
          request &   | |
          evidence    | |
    +-----------------+-+-----------------------------------+
-   |  Trust Domain   | |                                   |
-   |                 | |            (1)identity            |
+   |  Trust Domain   | |            (1)identity            |
    |                 | |            credential             |
    | +--------------++ v ---------+ request      +-------+ |
    | |              |             <--------------+       | |
