@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ni &amp; Liu</td>
-<td class="center">Expires 30 August 2026</td>
+<td class="center">Expires 1 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ni-wimse-ai-agent-identity-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-02-26" class="published">26 February 2026</time>
+<time datetime="2026-02-28" class="published">28 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-08-30">30 August 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-01">1 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1121,7 +1121,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1168,7 +1168,31 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-extensions-to-the-wimse-arc" class="internal xref">Extensions to the WIMSE Architecture-- Binding Workload/AI Agent Identity to Its User Identity</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-identity-binding-extensions" class="internal xref">Identity Binding Extensions for WIMSE</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-use-cases" class="internal xref">Use Cases</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.1">
+                    <p id="section-toc.1-1.4.2.1.2.1.1"><a href="#section-4.1.1" class="auto internal xref">4.1.1</a>.  <a href="#name-cross-organization-interact" class="internal xref">Cross-organization Interaction</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-issuance-models" class="internal xref">Issuance Models</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.1">
+                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-agent-mediated-owner-pre-si" class="internal xref">Agent-Mediated (Owner-Pre-Signed)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.2">
+                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-owner-mediated-gateway-mode" class="internal xref">Owner-Mediated (Gateway Mode)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.3">
+                    <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="auto internal xref">4.2.3</a>.  <a href="#name-server-mediated-challenge-r" class="internal xref">Server-Mediated (Challenge-Response)</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-comparison-with-cheq" class="internal xref">Comparison with CHEQ</a></p>
@@ -1209,37 +1233,37 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">AI agents are autonomous software entities that receive an intent, process contextual information, and execute decisions at machine speed with minimal human intervention. Without appropriate guardrails, they may give rise to significant risks:<a href="#section-1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-2">
-<li id="section-1-2.1">
+<ul class="normal">
+<li class="normal" id="section-1-2.1">
           <p id="section-1-2.1.1">Blurred Network Boundaries: AI agents may operate across systems and platforms, which expands attack surface and amplifies security risks.<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.2">
+        <li class="normal" id="section-1-2.2">
           <p id="section-1-2.2.1">Arbitrary and Unpredictable Access Patterns: AI agents may perform unexpected actions or access sensitive resources susceptible to malicious manipulation or logical errors.<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.3">
+        <li class="normal" id="section-1-2.3">
           <p id="section-1-2.3.1">Lack of Accountability: Tracing an AI agent's actions is inherently difficult, leading to difficulty to detect erroneous behaviors.<a href="#section-1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.4">
+        <li class="normal" id="section-1-2.4">
           <p id="section-1-2.4.1">Context Rot: A gradual degradation of their ability to maintain relevant and coherent call contexts over time.<a href="#section-1-2.4.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
+      </ul>
 <p id="section-1-3">Therefore, for AI agents, the traditional perimeter-based security model has to transform into the identity-based security model, which is a prequisite to implementing precise access control and ensuring security visibility.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">To realize this goal, a mechanism should be designed considering the following requirements:<a href="#section-1-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-5">
-<li id="section-1-5.1">
+<ul class="normal">
+<li class="normal" id="section-1-5.1">
           <p id="section-1-5.1.1">Independent, Trustworthy Identities: AI agents should have independent and trustworthy identities and credentials, distinct from those of devices and users. This allows the AI agent to act either on its own behalf or as a delegation of a user, have its own access tokens and workflows.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.2">
+        <li class="normal" id="section-1-5.2">
           <p id="section-1-5.2.1">Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity period to minimize security exposure.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.3">
+        <li class="normal" id="section-1-5.3">
           <p id="section-1-5.3.1">Minimal Privileged Access Tokens: AI agents should have task-oriented, fine-grained access tokens with short validity periods.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.4">
+        <li class="normal" id="section-1-5.4">
           <p id="section-1-5.4.1">Explicit Workflows: AI agents need explicit workflow management in order to avoid random agentic access. The workflow could be long-termed and static, or could be short-termed and task-triggered, but the call context must always be visible and preserved.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-1-6">This document discusses possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.3.1 Bootstrapping Workload Identifiers and Credentials of <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>. We also discuss requirements of extending WIMSE architecture to bind workload/AI agent identity to its user identity.<a href="#section-1-6" class="pilcrow">¶</a></p>
+      </ul>
+<p id="section-1-6">This document discusses possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.3.1 Bootstrapping Workload Identifiers and Credentials of <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>. We also discuss requirements of extending WIMSE architecture to bind workload/AI agent identity to its owner's identity.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1248,21 +1272,24 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
 <p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document uses terms and concepts defined by WIMSE architecture. For a complete glossary please refer to <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-3">
-<li id="section-2-3.1">
+<p id="section-2-2">This document uses terms and concepts defined by WIMSE architecture. For a complete glossary please refer to <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-3.1">
           <p id="section-2-3.1.1">Trust Domain: A logical grouping of systems that share a common set of security controls and policies. Agent credentials are issued under the authority of a trust domain.<a href="#section-2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.2">
+        <li class="normal" id="section-2-3.2">
           <p id="section-2-3.2.1">AI Agent: The autonomous software entity that initiates the credential request. This document may refer to it as the "agent", but is is essentially the workload instead of the agent in the WIMSE architecture.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.3">
+        <li class="normal" id="section-2-3.3">
           <p id="section-2-3.3.1">Identity Server: A trusted entity issuing agent identity and credentials. For simplicity, this document may refer to this component as the "server".<a href="#section-2-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.4">
+        <li class="normal" id="section-2-3.4">
           <p id="section-2-3.4.1">Identity Proxy: An intermediary component that can request, inspect, replace or augment agent identity credentials. It exposes an Agent API locally to agents. For simplicity, this document may refer to this component as the "proxy".<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
+      </ul>
+<p id="section-2-4">In addition, this document introduces the following new terms:
+* Owner: An entity (individual or organization) responsible for the an agent, which can provide a cryptographic signature to bind the agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
+* Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="architecture">
@@ -1278,10 +1305,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-3.1-1">This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.       A basic workflow is shown in Figure 1.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-2">
 <li id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">The proxy forwards these requests,  along with the evidence for verifing the operational status of the agent, to the server for processing.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">The proxy forwards these requests,  along with the attestation evidence for verifing the operational status of the agent, to the server for processing.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.3">
             <p id="section-3.1-2.3.1">The server validates the evidence received from the proxy, and issues the corresponding identity credentials.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1293,31 +1320,23 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="alignLeft art-text artwork" id="section-3.1-3">
 <pre>
   +----------------------------+
-  |                            |
   |       Identity Server      |
-  |                            |
   +-------------- ^ + ---------+
-                  | |
       (2)identity | |(3)identity
       credential  | | credential
       request &amp;   | |
       evidence    | |
 +-----------------+-+-----------------------------------+
-|                 | | Trust Domain                      |
-|                 | |            (1)identity            |
+|  Trust Domain   | |            (1)identity            |
 |                 | |            credential             |
 | +--------------++ v ---------+ request      +-------+ |
 | |              |             &lt;--------------+       | |
 | |Identity Proxy|  Agent API  +--------------&gt; Agent | |
 | |              |             | (4)identity  |       | |
 | +--------------+----- ^ -----+ credential   +-------+ |
-|                       |                               |
 |              evidence |                               |
-|                       |                               |
 +-----------------------+-------------------------------+
-|                                                       |
 |          Hosting Operating Systems and Hardware       |
-|                                                       |
 +-------------------------------------------------------+
 
 </pre><a href="#section-3.1-3" class="pilcrow">¶</a>
@@ -1330,58 +1349,172 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-attestation">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-attestation" class="section-name selfRef">Attestation</a>
         </h3>
-<p id="section-3.2-1">During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to support identity server's decision of whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents <span>[<a href="#I-D.draft-messous-eat-ai-01" class="cite xref">I-D.draft-messous-eat-ai-01</a>]</span>, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="extensions-to-the-wimse-architecture-binding-workloadai-agent-identity-to-its-user-identity">
+<div id="identity-binding-extensions-for-wimse">
 <section id="section-4">
-      <h2 id="name-extensions-to-the-wimse-arc">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-extensions-to-the-wimse-arc" class="section-name selfRef">Extensions to the WIMSE Architecture-- Binding Workload/AI Agent Identity to Its User Identity</a>
+      <h2 id="name-identity-binding-extensions">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-identity-binding-extensions" class="section-name selfRef">Identity Binding Extensions for WIMSE</a>
       </h2>
-<p id="section-4-1">AI Agent identity has the full complexity of user identity, since agents may act on behalf of human, organization, etc. Therefore, agent should have a credential that both denotes its identity and its human owner identity, which will provide convenience for future access controls. Cryptographic assurances must be provided that the user approves the credential request.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">Figure 2 illustrates the extended architecture, which binds user identity to agent identity. This architecture extends the basic workflow described in Section 2.2.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">The core process remains largely unchanged from steps 1 to 4. However, a critical enhancement is introduced between steps 2 and 3:<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">4.1. Upon receiving an identity credential request, the server forwards it to the user on whose behalf the requesting agent acts. This initiates the user confirmation flow.<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">4.2. The user validates the received information. Upon approval, the user should provide a cryptographic signature, binding the user's identity to the requested agent credential.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6"><strong>Open Question</strong>: How can users effectively provide cryptographic signatures for agent credential requests? Is leveraging hardware security features in user devices a viable and practical approach?<a href="#section-4-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-7">
-<pre>
-
-                                 (4.1)identity
-                                 credential
-  +----------------------------+ request      +------+
-  |                            +--------------&gt;      |
-  |       Identity Server      &lt;--------------+ user |
-  |                            |(4.2)user     |      |
-  +-------------- ^ +----------+confirmation &amp;+------+
-                  | |           signature
-      (2)identity | | (3)identity
-      credential  | |  credential
-      request &amp;   | |
-      evidence    | |
-+-----------------+-+-----------------------------------+
-|                 | | Trust Domain                      |
-|                 | |            (1)identity            |
-|                 | |            credential             |
-| +--------------++ v ---------+ request      +-------+ |
-| |              |             &lt;--------------+       | |
-| |Identity Proxy|  Agent API  +--------------&gt; Agent | |
-| |              |             | (4)identity  |       | |
-| +--------------+----- ^ -----+ credential   +-------+ |
-|                       |                               |
-|              evidence |                               |
-|                       |                               |
-+-----------------------+-------------------------------+
-|                                                       |
-|          Hosting Operating Systems and Hardware       |
-|                                                       |
-+-------------------------------------------------------+
-
-</pre><a href="#section-4-7" class="pilcrow">¶</a>
+<p id="section-4-1">The basic WIMSE architecture ensures a trusted entity owns a trusted workload identity that is secure to connect to. However, the agent often operates on behalf of a human user or an organization. Consequently, an agent requires a credential that cryptographically binds its identity to its owner’s identity. This dual-identity credential provides a necessary foundation for access control and accountability. This section describes the necessity of dual-identity credential through two representative use cases and defines three operational models to issue it.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="use-cases">
+<section id="section-4.1">
+        <h3 id="name-use-cases">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-use-cases" class="section-name selfRef">Use Cases</a>
+        </h3>
+<p id="section-4.1-1">### Network Access Control in Campus<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">Campus administrators require authentication of agents before granting access to internal network via authentication protocols such as IEEE 802.1X (e.g., using EAP-TLS). In this scenario, the Authentication Server must verify the agent's credential and determine its network privileges. A single-identity credential only allows the Authentication Server to identify the agent itself. Without further information, Authentication Server may treat the agent as a guest, providing only limited public access or rejecting the request to protect sensitive zones. A dual-identity credential allows the Authentication Server to verify both the agent's identity and the specific user or department it represents. For instance, an agent representing Alice from the R&amp;D department can be identified as a trusted entity, and can receive proper access privileges according to existing IAM information (like RBAC). This enables the network to implement user-specific segmentation, such as automatically assigning the agent to the R&amp;D VLAN rather than a guest network.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<div id="cross-organization-interaction">
+<section id="section-4.1.1">
+          <h4 id="name-cross-organization-interact">
+<a href="#section-4.1.1" class="section-number selfRef">4.1.1. </a><a href="#name-cross-organization-interact" class="section-name selfRef">Cross-organization Interaction</a>
+          </h4>
+<p id="section-4.1.1-1">In collaborative enterprise environments, it is essential to ensure that any agent requesting services is explicitly approved by its organization. This requirement spans the entire credential lifecycle, from issuance to interaction.<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-2.1">
+              <p id="section-4.1.1-2.1.1">Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential. In other words, dual-identity credential could be a manifestation of Human-in-the-Loop (HITL) mechanisms.<a href="#section-4.1.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.1.1-2.2">
+              <p id="section-4.1.1-2.2.1">Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol<span>[<a href="#A2A-SPEC" class="cite xref">A2A-SPEC</a>]</span> and WIMSE architecture<span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for cross-organization interactions.<a href="#section-4.1.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
 </div>
-<p id="section-4-8"><em>Figure 2: Extended Architecture and the Workflow</em><a href="#section-4-8" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="issuance-models">
+<section id="section-4.2">
+        <h3 id="name-issuance-models">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-issuance-models" class="section-name selfRef">Issuance Models</a>
+        </h3>
+<p id="section-4.2-1">Identity binding can be integrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound. Before initiating the dual-identity issuance flow, a pre-established trust relationship must exist, where the identity server is provisioned with trust anchors (e.g., public keys, CA certificates, or hardware-backed credentials) to verify the owner’s signature. The mechanism by which these trust anchors are established, distributed, or updated is out of scope of this document.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<div id="agent-mediated-owner-pre-signed">
+<section id="section-4.2.1">
+          <h4 id="name-agent-mediated-owner-pre-si">
+<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-agent-mediated-owner-pre-si" class="section-name selfRef">Agent-Mediated (Owner-Pre-Signed)</a>
+          </h4>
+<p id="section-4.2.1-1">In this model, the owner acts as a local offline approvar, which provides a signature on the agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">a. The agent generates an identity credential request and sends it to the owner.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-3">b. The owner signs the request and returns the signature to the agent. The agent then combines the original request and the owner's signature into a new composite request.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-4">The following steps are similar to the basic architecture, that is, the agent send the new composite request to the server via the proxy (steps 1 and 2), then the server verifies the request and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.1-5">
+<pre>
+  +----------------------------+
+  |       Identity Server      |
+  +-------------- ^ + ---------+
+               (2)| |(3)
++-----------------+-+---------------------------------+
+| Trust Domain    | |              +-------+          |
+|                 | |              | owner |          |
+|                 | |              +--^-+--+          |
+|                 | |       (a)request| |(b)signature |
+| +--------------++ v -------+ (1) +--+-v--+          |
+| |              |           ------+       |          |
+| |Identity Proxy| Agent API ------&gt; Agent |          |
+| |              |           | (4) |       |          |
+| +--------------+-----------+     +-------+          |
++-----------------------------------------------------+
+</pre><a href="#section-4.2.1-5" class="pilcrow">¶</a>
+</div>
+<p id="section-4.2.1-6"><em>Figure 2: Agent-Mediate Model</em><a href="#section-4.2.1-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.1-7.1">
+              <p id="section-4.2.1-7.1.1">Typical Application Scenarios: This model is ideal for local identity binding where the owner and agent operate on the same host . It supports asynchronous and offline owner confirmation, allowing the owner use local signing module (e.g., a hardware security key)  to pre-sign the agent's request. For instance, a developer using a personal hardware security key to sign an agent's request directly on their local machine. Therefore, this model obviously supports hardware-based identity binding, cryptographically anchoring the agent’s dual-identity to the specific physical device managed by the owner.<a href="#section-4.2.1-7.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.2.1-7.2">
+              <p id="section-4.2.1-7.2.1">Attack Surface: The primary attack surface lies at the local environment,  focusing on two main risks. First is human-agent trust exploitation: an attacked or rogue agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner’s local private keys are not protected by hardware (e.g., TPM), an attacker can forge confirmations.<a href="#section-4.2.1-7.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="owner-mediated-gateway-mode">
+<section id="section-4.2.2">
+          <h4 id="name-owner-mediated-gateway-mode">
+<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-owner-mediated-gateway-mode" class="section-name selfRef">Owner-Mediated (Gateway Mode)</a>
+          </h4>
+<p id="section-4.2.2-1">In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-2">Such a mechanism is intergrated in the basic architecture as shown in Figure 3. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-3">a. The proxy intercepts the request and relays it to the owner for administrative inspection.<a href="#section-4.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-4">b. The owner reviews and signs the request. It then combines the original request and the owner's signature into a new composite request to be submitted to the server, along with additional organizational materials, such as an oragnizational credential.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-5">c. The server validates the received information and issues the dual-identity credential back to the owner, who then dispatches it to the proxy.<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-6">Finally, the proxy send the credential to the corresponding agents(step 4).<a href="#section-4.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-7">Figure 3 shows a one-to-one mapping case between the owner and the proxy. In this case, the function of owner can be integrated directly into the proxy, collapsing the hierarchy into a single entity to simplify the deployment. Moreover, this model also supports a one-to-many topology, allowing a central owner to manage multiple proxies across various trust domains.<a href="#section-4.2.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.2-8">
+<pre>
+  +----------------------------+
+  |      Identity Server       |
+  +------------------^-+-------+
+      (b)request     | | (c)dual-identity
+      (signature)    | |  credential
+  +------------------+-v-------+
+  |           Owner            |
+  +------------------^-+-------+
+      (a)request     | | (c)
++--------------------+-+--------------------------------+
+| Trust Domain       | |                                |
+| +--------------+---+-v-------+     (1)      +-------+ |
+| |              |             &lt;---------------       | |
+| |Identity Proxy|  Agent API  |--------------&gt; Agent | |
+| |              |             |     (4)      |       | |
+| +--------------+-------------+              +-------+ |
++-------------------------------------------------------+
+</pre><a href="#section-4.2.2-8" class="pilcrow">¶</a>
+</div>
+<p id="section-4.2.2-9"><em>Figure 3: Owner-Mediate Model</em><a href="#section-4.2.2-9" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2-10.1">
+              <p id="section-4.2.2-10.1.1">Typical Application Scenarios: This model is ideal for enterprise governance. Since the owner sits in the middle, acting like a middlebox to ensure no request reaches server unless it complies with enterprise security policies and compliance requirements. It is particularly suitable for hierarchical environments where the owner acts as a centralized gateway for multiple proxies.<a href="#section-4.2.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.2.2-10.2">
+              <p id="section-4.2.2-10.2.1">Attack Surface: The owner becomes a high-value target and a single point of failure. If it is compromised, an attacker can forge approvals for any agent across the managed proxies. To mitigate this, mutual authentication and cryptographic integrity are mandatory between proxies and the owner. Furthermore, as a centralized gateway, the owner is vulnerable to Denial-of-Service attacks. It is essential to implement rate limiting and request queuing.<a href="#section-4.2.2-10.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="server-mediated-challenge-response">
+<section id="section-4.2.3">
+          <h4 id="name-server-mediated-challenge-r">
+<a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-server-mediated-challenge-r" class="section-name selfRef">Server-Mediated (Challenge-Response)</a>
+          </h4>
+<p id="section-4.2.3-1">In this model, the owner acts as an independent verifier. The server orchestrates the binding phase by contacting the owner as a separate step in the issuance logic, decoupling the binding from the agent's request.<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.3-2">This mechanism is integrated into the basic architecture as shown in Figure 4. First, the agent sends an identity credential request to the server via the proxy (steps 1 and 2), then:<a href="#section-4.2.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.3-3">a. The server pauses the process and sends a binding challenge to the owner on whose behalf the requesting agent acts. This initiates the owner confirmation flow.<a href="#section-4.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.2.3-4">b. The owner reviews the challenge, signs it, and returns the response to the server.<a href="#section-4.2.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.3-5">After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).<a href="#section-4.2.3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.3-6">
+<pre>
+  +----------------------------+(a)challenge  +---- --+
+  |                            +--------------&gt;       |
+  |       Identity Server      &lt;--------------+ Owner |
+  |                            |(b)signature  |       |
+  +-------------- ^ +----------+              +---- --+
+               (2)| |(3)
++-----------------+-+-----------------------------------+
+| Trust Domain    | |                                   |
+| +---------------+-v----------+     (1)      +-------+ |
+| |              |             |--------------+       | |
+| |Identity Proxy|  Agent API  |--------------&gt; Agent | |
+| |              |             |     (4)      |       | |
+| +----------------------------+              +-------+ |
++-------------------------------------------------------+
+</pre><a href="#section-4.2.3-6" class="pilcrow">¶</a>
+</div>
+<p id="section-4.2.3-7"><em>Figure 4: Server-Mediate Model</em><a href="#section-4.2.3-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.3-8.1">
+              <p id="section-4.2.3-8.1.1">Typical Application Scenarios: This model is suitable for scenarios requiring independent and real-time confirmation from an owner who is not involved in the initial request path. For instance, An agent is deployed by a service provider on behalf of an organization. When the agent requests an identity credential, the server initiates an out-of-band verification directly to the administrative center.<a href="#section-4.2.3-8.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.2.3-8.2">
+              <p id="section-4.2.3-8.2.1">Attack Surface: The primary risk lies in the out-of-band channel. Without nonces or mutual authentication, an attacker could intercept this channel to perform response forgery or replay attacks.<a href="#section-4.2.3-8.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="comparison-with-cheq">
@@ -1459,6 +1592,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="A2A-SPEC">[A2A-SPEC]</dt>
+        <dd>
+<span class="refTitle">"Agent2Agent (A2A) Protocol Specifications"</span>, <time datetime="2025-10" class="refDate">October 2025</time>, <span>&lt;<a href="https://a2a-protocol.org/latest/topics/enterprise-ready/">https://a2a-protocol.org/latest/topics/enterprise-ready/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-messous-eat-ai-01">[I-D.draft-messous-eat-ai-01]</dt>
+        <dd>
+<span class="refAuthor">MESSOUS, A.</span>, <span class="refAuthor">Morand, L.</span>, and <span class="refAuthor">P. C. Liu</span>, <span class="refTitle">"Entity Attestation Token (EAT) Profile for Autonomous AI Agents"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-messous-eat-ai-01</span>, <time datetime="2026-02-23" class="refDate">23 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-messous-eat-ai-01">https://datatracker.ietf.org/doc/html/draft-messous-eat-ai-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.draft-rosenberg-cheq-00">[I-D.draft-rosenberg-cheq-00]</dt>
         <dd>
 <span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">White, P.</span>, and <span class="refAuthor">C. F. Jennings</span>, <span class="refTitle">"CHEQ: A Protocol for Confirmation AI Agent Decisions with Human in the Loop (HITL)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-rosenberg-cheq-00</span>, <time datetime="2025-07-24" class="refDate">24 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-rosenberg-cheq-00">https://datatracker.ietf.org/doc/html/draft-rosenberg-cheq-00</a>&gt;</span>. </dd>

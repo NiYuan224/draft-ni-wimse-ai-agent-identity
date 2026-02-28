@@ -5,7 +5,7 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 30 August 2026                                 26 February 2026
+Expires: 1 September 2026                               28 February 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2026.
+   This Internet-Draft will expire on 1 September 2026.
 
 Copyright Notice
 
@@ -68,8 +68,13 @@ Table of Contents
    3.  Architecture
      3.1.  Bootstrapping AI Agent Identity and Credentials
      3.2.  Attestation
-   4.  Extensions to the WIMSE Architecture-- Binding Workload/AI
-           Agent Identity to Its User Identity
+   4.  Identity Binding Extensions for WIMSE
+     4.1.  Use Cases
+       4.1.1.  Cross-organization Interaction
+     4.2.  Issuance Models
+       4.2.1.  Agent-Mediated (Owner-Pre-Signed)
+       4.2.2.  Owner-Mediated (Gateway Mode)
+       4.2.3.  Server-Mediated (Challenge-Response)
    5.  Comparison with CHEQ
    6.  Initial Trust Establishment
    7.  Security Considerations
@@ -87,20 +92,20 @@ Table of Contents
    speed with minimal human intervention.  Without appropriate
    guardrails, they may give rise to significant risks:
 
-   1.  Blurred Network Boundaries: AI agents may operate across systems
-       and platforms, which expands attack surface and amplifies
-       security risks.
+   *  Blurred Network Boundaries: AI agents may operate across systems
+      and platforms, which expands attack surface and amplifies security
+      risks.
 
-   2.  Arbitrary and Unpredictable Access Patterns: AI agents may
-       perform unexpected actions or access sensitive resources
-       susceptible to malicious manipulation or logical errors.
+   *  Arbitrary and Unpredictable Access Patterns: AI agents may perform
+      unexpected actions or access sensitive resources susceptible to
+      malicious manipulation or logical errors.
 
-   3.  Lack of Accountability: Tracing an AI agent's actions is
-       inherently difficult, leading to difficulty to detect erroneous
-       behaviors.
+   *  Lack of Accountability: Tracing an AI agent's actions is
+      inherently difficult, leading to difficulty to detect erroneous
+      behaviors.
 
-   4.  Context Rot: A gradual degradation of their ability to maintain
-       relevant and coherent call contexts over time.
+   *  Context Rot: A gradual degradation of their ability to maintain
+      relevant and coherent call contexts over time.
 
    Therefore, for AI agents, the traditional perimeter-based security
    model has to transform into the identity-based security model, which
@@ -110,31 +115,30 @@ Table of Contents
    To realize this goal, a mechanism should be designed considering the
    following requirements:
 
-   1.  Independent, Trustworthy Identities: AI agents should have
-       independent and trustworthy identities and credentials, distinct
-       from those of devices and users.  This allows the AI agent to act
-       either on its own behalf or as a delegation of a user, have its
-       own access tokens and workflows.
+   *  Independent, Trustworthy Identities: AI agents should have
+      independent and trustworthy identities and credentials, distinct
+      from those of devices and users.  This allows the AI agent to act
+      either on its own behalf or as a delegation of a user, have its
+      own access tokens and workflows.
 
-   2.  Automated Credential Management: An automated mechanism is
-       necessary for managing credentials with reduced validity period
-       to minimize security exposure.
+   *  Automated Credential Management: An automated mechanism is
+      necessary for managing credentials with reduced validity period to
+      minimize security exposure.
 
-   3.  Minimal Privileged Access Tokens: AI agents should have task-
-       oriented, fine-grained access tokens with short validity periods.
+   *  Minimal Privileged Access Tokens: AI agents should have task-
+      oriented, fine-grained access tokens with short validity periods.
 
-   4.  Explicit Workflows: AI agents need explicit workflow management
-       in order to avoid random agentic access.  The workflow could be
-       long-termed and static, or could be short-termed and task-
-       triggered, but the call context must always be visible and
-       preserved.
+   *  Explicit Workflows: AI agents need explicit workflow management in
+      order to avoid random agentic access.  The workflow could be long-
+      termed and static, or could be short-termed and task-triggered,
+      but the call context must always be visible and preserved.
 
    This document discusses possibility of using WIMSE architecture to
    provide AI agent identities and credentials.  It accords with the
    original WIMSE use case in Section 3.3.1 Bootstrapping Workload
    Identifiers and Credentials of [I-D.ietf-wimse-arch-06].  We also
    discuss requirements of extending WIMSE architecture to bind
-   workload/AI agent identity to its user identity.
+   workload/AI agent identity to its owner's identity.
 
 2.  Conventions and Definitions
 
@@ -145,25 +149,37 @@ Table of Contents
    capitals, as shown here.
 
    This document uses terms and concepts defined by WIMSE architecture.
-   For a complete glossary please refer to [I-D.ietf-wimse-arch-06].
+   For a complete glossary please refer to [I-D.ietf-wimse-arch-06]:
 
-   1.  Trust Domain: A logical grouping of systems that share a common
-       set of security controls and policies.  Agent credentials are
-       issued under the authority of a trust domain.
+   *  Trust Domain: A logical grouping of systems that share a common
+      set of security controls and policies.  Agent credentials are
+      issued under the authority of a trust domain.
 
-   2.  AI Agent: The autonomous software entity that initiates the
-       credential request.  This document may refer to it as the
-       "agent", but is is essentially the workload instead of the agent
-       in the WIMSE architecture.
+   *  AI Agent: The autonomous software entity that initiates the
+      credential request.  This document may refer to it as the "agent",
+      but is is essentially the workload instead of the agent in the
+      WIMSE architecture.
 
-   3.  Identity Server: A trusted entity issuing agent identity and
-       credentials.  For simplicity, this document may refer to this
-       component as the "server".
+   *  Identity Server: A trusted entity issuing agent identity and
+      credentials.  For simplicity, this document may refer to this
+      component as the "server".
 
-   4.  Identity Proxy: An intermediary component that can request,
-       inspect, replace or augment agent identity credentials.  It
-       exposes an Agent API locally to agents.  For simplicity, this
-       document may refer to this component as the "proxy".
+   *  Identity Proxy: An intermediary component that can request,
+      inspect, replace or augment agent identity credentials.  It
+      exposes an Agent API locally to agents.  For simplicity, this
+      document may refer to this component as the "proxy".
+
+   In addition, this document introduces the following new terms: *
+   Owner: An entity (individual or organization) responsible for the an
+   agent, which can provide a cryptographic signature to bind the agent
+   identity to a specific principal.  Logically, an owner may manifest
+   in various forms, including a natural person (e.g., via a manual
+   confirmation process), a physical device (e.g., a hardware security
+   module), or an automated policy engine that grants approval based on
+   pre-defined security policies. * Dual-Identity Credential: A
+   credential that contains the identifiers and associated public keys
+   of both an agent and its owner.  The credential is cryptographically
+   bound to both entities.
 
 3.  Architecture
 
@@ -176,11 +192,13 @@ Table of Contents
 
    1.  As an intermediary between the server and the agents, the proxy
        provides an agent API that agents can use to initiate identity
-       credential requests.
+       credential requests.  These requests include a public key and a
+       signature as proof-of-possession to demonstrate control of the
+       corresponding private key.
 
-   2.  The proxy forwards these requests, along with the evidence for
-       verifing the operational status of the agent, to the server for
-       processing.
+   2.  The proxy forwards these requests, along with the attestation
+       evidence for verifing the operational status of the agent, to the
+       server for processing.
 
    3.  The server validates the evidence received from the proxy, and
        issues the corresponding identity credentials.
@@ -188,31 +206,23 @@ Table of Contents
    4.  Once issued, the proxy forwards the agent identity credentials.
 
      +----------------------------+
-     |                            |
      |       Identity Server      |
-     |                            |
      +-------------- ^ + ---------+
-                     | |
          (2)identity | |(3)identity
          credential  | | credential
          request &   | |
          evidence    | |
    +-----------------+-+-----------------------------------+
-   |                 | | Trust Domain                      |
-   |                 | |            (1)identity            |
+   |  Trust Domain   | |            (1)identity            |
    |                 | |            credential             |
    | +--------------++ v ---------+ request      +-------+ |
    | |              |             <--------------+       | |
    | |Identity Proxy|  Agent API  +--------------> Agent | |
    | |              |             | (4)identity  |       | |
    | +--------------+----- ^ -----+ credential   +-------+ |
-   |                       |                               |
    |              evidence |                               |
-   |                       |                               |
    +-----------------------+-------------------------------+
-   |                                                       |
    |          Hosting Operating Systems and Hardware       |
-   |                                                       |
    +-------------------------------------------------------+
 
    _Figure 1: Basic Architecture and the Workflow_
@@ -223,69 +233,261 @@ Table of Contents
    should gather attestation evidence from the operating system and
    hardware to verify the operational status of the agent.  This
    information is used by a RATS Verifier (could be the server) to
-   decide whether or not to issue the identity credential of an agent,
-   whether it is a bootstrapping or a renewal request.
+   support identity server's decision of whether or not to issue the
+   identity credential of an agent, whether it is a bootstrapping or a
+   renewal request.  The structure and claims of this evidence may refer
+   to the Entity Attestation Token (EAT) profile for Autonomous AI
+   Agents [I-D.draft-messous-eat-ai-01], which defines specialized
+   claims for AI agent integrity, training provenance, and runtime
+   authorization.
 
-4.  Extensions to the WIMSE Architecture-- Binding Workload/AI Agent
-    Identity to Its User Identity
+4.  Identity Binding Extensions for WIMSE
 
-   AI Agent identity has the full complexity of user identity, since
-   agents may act on behalf of human, organization, etc.  Therefore,
-   agent should have a credential that both denotes its identity and its
-   human owner identity, which will provide convenience for future
-   access controls.  Cryptographic assurances must be provided that the
-   user approves the credential request.
+   The basic WIMSE architecture ensures a trusted entity owns a trusted
+   workload identity that is secure to connect to.  However, the agent
+   often operates on behalf of a human user or an organization.
+   Consequently, an agent requires a credential that cryptographically
+   binds its identity to its owner’s identity.  This dual-identity
+   credential provides a necessary foundation for access control and
+   accountability.  This section describes the necessity of dual-
+   identity credential through two representative use cases and defines
+   three operational models to issue it.
 
-   Figure 2 illustrates the extended architecture, which binds user
-   identity to agent identity.  This architecture extends the basic
-   workflow described in Section 2.2.
+4.1.  Use Cases
 
-   The core process remains largely unchanged from steps 1 to 4.
-   However, a critical enhancement is introduced between steps 2 and 3:
+   ### Network Access Control in Campus
 
-   4.1.  Upon receiving an identity credential request, the server
-   forwards it to the user on whose behalf the requesting agent acts.
-   This initiates the user confirmation flow.
+   Campus administrators require authentication of agents before
+   granting access to internal network via authentication protocols such
+   as IEEE 802.1X (e.g., using EAP-TLS).  In this scenario, the
+   Authentication Server must verify the agent's credential and
+   determine its network privileges.  A single-identity credential only
+   allows the Authentication Server to identify the agent itself.
+   Without further information, Authentication Server may treat the
+   agent as a guest, providing only limited public access or rejecting
+   the request to protect sensitive zones.  A dual-identity credential
+   allows the Authentication Server to verify both the agent's identity
+   and the specific user or department it represents.  For instance, an
+   agent representing Alice from the R&D department can be identified as
+   a trusted entity, and can receive proper access privileges according
+   to existing IAM information (like RBAC).  This enables the network to
+   implement user-specific segmentation, such as automatically assigning
+   the agent to the R&D VLAN rather than a guest network.
 
-   4.2.  The user validates the received information.  Upon approval,
-   the user should provide a cryptographic signature, binding the user's
-   identity to the requested agent credential.
+4.1.1.  Cross-organization Interaction
 
-   *Open Question*: How can users effectively provide cryptographic
-   signatures for agent credential requests?  Is leveraging hardware
-   security features in user devices a viable and practical approach?
+   In collaborative enterprise environments, it is essential to ensure
+   that any agent requesting services is explicitly approved by its
+   organization.  This requirement spans the entire credential
+   lifecycle, from issuance to interaction.
 
-                                    (4.1)identity
-                                    credential
-     +----------------------------+ request      +------+
-     |                            +-------------->      |
-     |       Identity Server      <--------------+ user |
-     |                            |(4.2)user     |      |
-     +-------------- ^ +----------+confirmation &+------+
-                     | |           signature
-         (2)identity | | (3)identity
-         credential  | |  credential
-         request &   | |
-         evidence    | |
-   +-----------------+-+-----------------------------------+
-   |                 | | Trust Domain                      |
-   |                 | |            (1)identity            |
-   |                 | |            credential             |
-   | +--------------++ v ---------+ request      +-------+ |
-   | |              |             <--------------+       | |
-   | |Identity Proxy|  Agent API  +--------------> Agent | |
-   | |              |             | (4)identity  |       | |
-   | +--------------+----- ^ -----+ credential   +-------+ |
-   |                       |                               |
-   |              evidence |                               |
-   |                       |                               |
-   +-----------------------+-------------------------------+
-   |                                                       |
-   |          Hosting Operating Systems and Hardware       |
-   |                                                       |
+   *  Issuance: When an agent requests an identity credential, the
+      identity server may require organizational oversight.  By binding
+      the agent's identity credential request to its corresponding
+      organization, the server can verify the organizational approval
+      before issuing the credential.  In other words, dual-identity
+      credential could be a manifestation of Human-in-the-Loop (HITL)
+      mechanisms.
+
+   *  Interaction: When an agent accesses another agent or a service
+      across organizational boundaries, authentication is necessary to
+      ensure the request is from a valid entity, as illustrated in the
+      A2A protocol[A2A-SPEC] and WIMSE
+      architecture[I-D.ietf-wimse-arch-06].  A dual-identity credential
+      carries an organizational approval, which provides a strong basis
+      for trust, ensuring both accountability and traceability for
+      cross-organization interactions.
+
+4.2.  Issuance Models
+
+   Identity binding can be integrated into the WIMSE workflow in several
+   ways. we introduce the following three models according to the
+   mediation point where the agent's identity and organizational
+   authority are cryptographically bound.  Before initiating the dual-
+   identity issuance flow, a pre-established trust relationship must
+   exist, where the identity server is provisioned with trust anchors
+   (e.g., public keys, CA certificates, or hardware-backed credentials)
+   to verify the owner’s signature.  The mechanism by which these trust
+   anchors are established, distributed, or updated is out of scope of
+   this document.
+
+4.2.1.  Agent-Mediated (Owner-Pre-Signed)
+
+   In this model, the owner acts as a local offline approvar, which
+   provides a signature on the agent's request before it is submitted to
+   the proxy.  The identity binding phase, consisting of the following
+   two steps, is added prior to the standard issuance flow defined in
+   Figure 1:
+
+   a.  The agent generates an identity credential request and sends it
+   to the owner.
+
+   b.  The owner signs the request and returns the signature to the
+   agent.  The agent then combines the original request and the owner's
+   signature into a new composite request.
+
+   The following steps are similar to the basic architecture, that is,
+   the agent send the new composite request to the server via the proxy
+   (steps 1 and 2), then the server verifies the request and issues the
+   dual-identity credential to the agent via the proxy (steps 3 and 4).
+
+     +----------------------------+
+     |       Identity Server      |
+     +-------------- ^ + ---------+
+                  (2)| |(3)
+   +-----------------+-+---------------------------------+
+   | Trust Domain    | |              +-------+          |
+   |                 | |              | owner |          |
+   |                 | |              +--^-+--+          |
+   |                 | |       (a)request| |(b)signature |
+   | +--------------++ v -------+ (1) +--+-v--+          |
+   | |              |           ------+       |          |
+   | |Identity Proxy| Agent API ------> Agent |          |
+   | |              |           | (4) |       |          |
+   | +--------------+-----------+     +-------+          |
+   +-----------------------------------------------------+
+
+   _Figure 2: Agent-Mediate Model_
+
+   *  Typical Application Scenarios: This model is ideal for local
+      identity binding where the owner and agent operate on the same
+      host . It supports asynchronous and offline owner confirmation,
+      allowing the owner use local signing module (e.g., a hardware
+      security key) to pre-sign the agent's request.  For instance, a
+      developer using a personal hardware security key to sign an
+      agent's request directly on their local machine.  Therefore, this
+      model obviously supports hardware-based identity binding,
+      cryptographically anchoring the agent’s dual-identity to the
+      specific physical device managed by the owner.
+
+   *  Attack Surface: The primary attack surface lies at the local
+      environment, focusing on two main risks.  First is human-agent
+      trust exploitation: an attacked or rogue agent may manipulate
+      human users to approve malicious request.  Second is the
+      compromise of signing keys: if the owner’s local private keys are
+      not protected by hardware (e.g., TPM), an attacker can forge
+      confirmations.
+
+4.2.2.  Owner-Mediated (Gateway Mode)
+
+   In this model, the owner acts as the supervisory gatekeeper between
+   the proxy and the server.  It inspects requests relayed by the proxy
+   to ensure compliance with organizational policies, providing
+   cryptographic binding only after approval.
+
+   Such a mechanism is intergrated in the basic architecture as shown in
+   Figure 3.  Firstly, the agent generates an identity credential
+   request and sends it to the proxy(step 1), then：
+
+   a.  The proxy intercepts the request and relays it to the owner for
+   administrative inspection.
+
+   b.  The owner reviews and signs the request.  It then combines the
+   original request and the owner's signature into a new composite
+   request to be submitted to the server, along with additional
+   organizational materials, such as an oragnizational credential.
+
+   c.  The server validates the received information and issues the
+   dual-identity credential back to the owner, who then dispatches it to
+   the proxy.
+
+   Finally, the proxy send the credential to the corresponding
+   agents(step 4).
+
+   Figure 3 shows a one-to-one mapping case between the owner and the
+   proxy.  In this case, the function of owner can be integrated
+   directly into the proxy, collapsing the hierarchy into a single
+   entity to simplify the deployment.  Moreover, this model also
+   supports a one-to-many topology, allowing a central owner to manage
+   multiple proxies across various trust domains.
+
+     +----------------------------+
+     |      Identity Server       |
+     +------------------^-+-------+
+         (b)request     | | (c)dual-identity
+         (signature)    | |  credential
+     +------------------+-v-------+
+     |           Owner            |
+     +------------------^-+-------+
+         (a)request     | | (c)
+   +--------------------+-+--------------------------------+
+   | Trust Domain       | |                                |
+   | +--------------+---+-v-------+     (1)      +-------+ |
+   | |              |             <---------------       | |
+   | |Identity Proxy|  Agent API  |--------------> Agent | |
+   | |              |             |     (4)      |       | |
+   | +--------------+-------------+              +-------+ |
    +-------------------------------------------------------+
 
-   _Figure 2: Extended Architecture and the Workflow_
+   _Figure 3: Owner-Mediate Model_
+
+   *  Typical Application Scenarios: This model is ideal for enterprise
+      governance.  Since the owner sits in the middle, acting like a
+      middlebox to ensure no request reaches server unless it complies
+      with enterprise security policies and compliance requirements.  It
+      is particularly suitable for hierarchical environments where the
+      owner acts as a centralized gateway for multiple proxies.
+
+   *  Attack Surface: The owner becomes a high-value target and a single
+      point of failure.  If it is compromised, an attacker can forge
+      approvals for any agent across the managed proxies.  To mitigate
+      this, mutual authentication and cryptographic integrity are
+      mandatory between proxies and the owner.  Furthermore, as a
+      centralized gateway, the owner is vulnerable to Denial-of-Service
+      attacks.  It is essential to implement rate limiting and request
+      queuing.
+
+4.2.3.  Server-Mediated (Challenge-Response)
+
+   In this model, the owner acts as an independent verifier.  The server
+   orchestrates the binding phase by contacting the owner as a separate
+   step in the issuance logic, decoupling the binding from the agent's
+   request.
+
+   This mechanism is integrated into the basic architecture as shown in
+   Figure 4.  First, the agent sends an identity credential request to
+   the server via the proxy (steps 1 and 2), then:
+
+   a.  The server pauses the process and sends a binding challenge to
+   the owner on whose behalf the requesting agent acts.  This initiates
+   the owner confirmation flow.
+
+   b.  The owner reviews the challenge, signs it, and returns the
+   response to the server.
+
+   After that, the server validates the owner's response, completes the
+   identity binding, and issues the dual-identity credential to the
+   agent via the proxy (steps 3 and 4).
+
+     +----------------------------+(a)challenge  +---- --+
+     |                            +-------------->       |
+     |       Identity Server      <--------------+ Owner |
+     |                            |(b)signature  |       |
+     +-------------- ^ +----------+              +---- --+
+                  (2)| |(3)
+   +-----------------+-+-----------------------------------+
+   | Trust Domain    | |                                   |
+   | +---------------+-v----------+     (1)      +-------+ |
+   | |              |             |--------------+       | |
+   | |Identity Proxy|  Agent API  |--------------> Agent | |
+   | |              |             |     (4)      |       | |
+   | +----------------------------+              +-------+ |
+   +-------------------------------------------------------+
+
+   _Figure 4: Server-Mediate Model_
+
+   *  Typical Application Scenarios: This model is suitable for
+      scenarios requiring independent and real-time confirmation from an
+      owner who is not involved in the initial request path.  For
+      instance, An agent is deployed by a service provider on behalf of
+      an organization.  When the agent requests an identity credential,
+      the server initiates an out-of-band verification directly to the
+      administrative center.
+
+   *  Attack Surface: The primary risk lies in the out-of-band channel.
+      Without nonces or mutual authentication, an attacker could
+      intercept this channel to perform response forgery or replay
+      attacks.
 
 5.  Comparison with CHEQ
 
@@ -372,6 +574,17 @@ Table of Contents
               May 2021, <https://www.rfc-editor.org/rfc/rfc8995>.
 
 9.2.  Informative References
+
+   [A2A-SPEC] "Agent2Agent (A2A) Protocol Specifications", October 2025,
+              <https://a2a-protocol.org/latest/topics/enterprise-
+              ready/>.
+
+   [I-D.draft-messous-eat-ai-01]
+              MESSOUS, A., Morand, L., and P. C. Liu, "Entity
+              Attestation Token (EAT) Profile for Autonomous AI Agents",
+              Work in Progress, Internet-Draft, draft-messous-eat-ai-01,
+              23 February 2026, <https://datatracker.ietf.org/doc/html/
+              draft-messous-eat-ai-01>.
 
    [I-D.draft-rosenberg-cheq-00]
               Rosenberg, J., White, P., and C. F. Jennings, "CHEQ: A
