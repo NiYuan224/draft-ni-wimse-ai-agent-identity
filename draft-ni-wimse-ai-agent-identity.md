@@ -132,25 +132,25 @@ During the request and issuance of identity credentials, the proxy should gather
 
 
 # Identity Binding Extensions for WIMSE
-In the basic WIMSE architecture, the workload identity ensures a trusted software entity is running in a secure envirionment. However, AI agents often operates on behalf of a human user or an organization. Consequently, an Agent requires a credential that cryptographically binds its identity to its Owner’s identity. This dual-identity credential provides a necessary foundation for access control and accountability. This section describes the necessity of dual-identity credential through two representative use cases and defines three operational models to issue it.
+In the basic WIMSE architecture, the workload identity ensures a trusted software entity is running in a secure envirionment. However, agents often operates on behalf of a human user or an organization. Consequently, an agent requires a credential that cryptographically binds its identity to its owner’s identity. This dual-identity credential provides a necessary foundation for access control and accountability. This section describes the necessity of dual-identity credential through two representative use cases and defines three operational models to issue it.
 
 ## Use Cases
 ### Network Access Control in Campus
 
-Campus administrators require to authenticate AI agents before granting access to internal network via authentication protocols such as IEEE 802.1X (e.g., using EAP-TLS). In this scenario, the agent acts as the Supplicant, and Authentication Server must verify the credential of the agents and determine its network privileges. A single-identity credential only allows the Authentication Server to identify the agent itself. Without further information, Authentication Server may treat the agent as a guest, providing only limited public access or rejecting the request to protect sensitive zones. A dual-identity credential allows the Authentication Server to verify both the agent's identity and the specific user or department it represents. For instance, an agent representing Alice from the R&D department can be identified as a trusted entity. This enables the network to implement user-specific segmentation, such as automatically assigning the agent to the R&D VLAN rather than a guest network.
+Campus administrators require authentication of agents before granting access to internal network via authentication protocols such as IEEE 802.1X (e.g., using EAP-TLS). In this scenario, the agent acts as the Supplicant, and Authentication Server must verify the agent's credential and determine its network privileges. A single-identity credential only allows the Authentication Server to identify the agent itself. Without further information, Authentication Server may treat the agent as a guest, providing only limited public access or rejecting the request to protect sensitive zones. A dual-identity credential allows the Authentication Server to verify both the agent's identity and the specific user or department it represents. For instance, an agent representing Alice from the R&D department can be identified as a trusted entity. This enables the network to implement user-specific segmentation, such as automatically assigning the agent to the R&D VLAN rather than a guest network.
 
 ### Cross-organization Interaction
 
 In collaborative enterprise environments, it is essential to ensure that any agent requesting services is explicitly approved by its organization. This requirement spans the entire credential lifecycle, from issuance to interaction.
 
-* Issuance: When an agent requests an identity credential, the identity server may require organization oversight. By binding the agent's identity credential request to its corresponding organization, identity server can verify the organizational approval before issuing the credential.
-* Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries a organizational approval, which provides a strong basis for trust, ensuring both Accountability and Traceability for all cross-organization interactions.
+* Issuance: When an agent requests an identity credential, the identity server may require organization oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential.
+* Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for all cross-organization interactions.
 
 ## Issuance Models
 Identity binding can be intergrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound.
 
 ### Agent-Mediated (Owner-Pre-Signed)
-In this model, the owner acts as a local offline endoser, which provides a signature on the Agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
+In this model, the owner acts as a local offline endoser, which provides a signature on the agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
 
 a. The agent generates an identity credential request and sends it to the owner.
 
