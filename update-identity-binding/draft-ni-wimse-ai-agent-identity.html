@@ -1288,8 +1288,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
       </ul>
 <p id="section-2-4">In addition, this document introduces the following new terms:
-* Owner: An entity (individual or organization) responsible for the an AI Agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
-* Dual-Identity Credential: A credential that cryptographically binds the agent's identity to its owner's identity.<a href="#section-2-4" class="pilcrow">¶</a></p>
+* Owner: An entity (individual or organization) responsible for the an agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
+* Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="architecture">
@@ -1305,10 +1305,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-3.1-1">This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.       A basic workflow is shown in Figure 1.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-2">
 <li id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">The proxy forwards these requests,  along with the evidence for verifing the operational status of the agent, to the server for processing.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">The proxy forwards these requests,  along with the attestation evidence for verifing the operational status of the agent, to the server for processing.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.3">
             <p id="section-3.1-2.3.1">The server validates the evidence received from the proxy, and issues the corresponding identity credentials.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1322,7 +1322,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
   +----------------------------+
   |       Identity Server      |
   +-------------- ^ + ---------+
-                  | |
       (2)identity | |(3)identity
       credential  | | credential
       request &amp;   | |
@@ -1350,7 +1349,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-attestation">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-attestation" class="section-name selfRef">Attestation</a>
         </h3>
-<p id="section-3.2-1">During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents <span>[<a href="#I-D.draft-messous-eat-ai-01" class="cite xref">I-D.draft-messous-eat-ai-01</a>]</span>, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1411,9 +1410,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 | Trust Domain    | |              +-------+          |
 |                 | |              | owner |          |
 |                 | |              +--^-+--+          |
-|                 | |                 | |             |
 |                 | |       (a)request| |(b)signature |
-|                 | |                 | |             |
 | +--------------++ v -------+ (1) +--+-v--+          |
 | |              |           ------+       |          |
 | |Identity Proxy| Agent API ------&gt; Agent |          |
@@ -1450,13 +1447,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
   +----------------------------+
   |      Identity Server       |
   +------------------^-+-------+
-                     | |
       (b)request     | | (c)dual-identity
       (signature)    | |  credential
   +------------------+-v-------+
   |           Owner            |
   +------------------^-+-------+
-                     | |
       (a)request     | | (c)
 +--------------------+-+--------------------------------+
 | Trust Domain       | |                                |
@@ -1600,6 +1595,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt id="A2A-SPEC">[A2A-SPEC]</dt>
         <dd>
 <span class="refTitle">"Agent2Agent (A2A) Protocol Specifications"</span>, <time datetime="2025-10" class="refDate">October 2025</time>, <span>&lt;<a href="https://a2a-protocol.org/latest/topics/enterprise-ready/">https://a2a-protocol.org/latest/topics/enterprise-ready/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-messous-eat-ai-01">[I-D.draft-messous-eat-ai-01]</dt>
+        <dd>
+<span class="refAuthor">MESSOUS, A.</span>, <span class="refAuthor">Morand, L.</span>, and <span class="refAuthor">P. C. Liu</span>, <span class="refTitle">"Entity Attestation Token (EAT) Profile for Autonomous AI Agents"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-messous-eat-ai-01</span>, <time datetime="2026-02-23" class="refDate">23 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-messous-eat-ai-01">https://datatracker.ietf.org/doc/html/draft-messous-eat-ai-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-rosenberg-cheq-00">[I-D.draft-rosenberg-cheq-00]</dt>
         <dd>

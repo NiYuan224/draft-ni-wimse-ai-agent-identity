@@ -171,14 +171,15 @@ Table of Contents
 
    In addition, this document introduces the following new terms: *
    Owner: An entity (individual or organization) responsible for the an
-   AI Agent, which can provide a cryptographic signature to bind the AI
+   agent, which can provide a cryptographic signature to bind the AI
    Agent identity to a specific principal.  Logically, an owner may
    manifest in various forms, including a natural person (e.g., via a
    manual confirmation process), a physical device (e.g., a hardware
    security module), or an automated policy engine that grants approval
    based on pre-defined security policies. * Dual-Identity Credential: A
-   credential that cryptographically binds the agent's identity to its
-   owner's identity.
+   credential that contains the identifiers and associated public keys
+   of both an agent and its owner.  The credential is cryptographically
+   bound to both entities.
 
 3.  Architecture
 
@@ -191,11 +192,13 @@ Table of Contents
 
    1.  As an intermediary between the server and the agents, the proxy
        provides an agent API that agents can use to initiate identity
-       credential requests.
+       credential requests.  These requests include a public key and a
+       signature as proof-of-possession to demonstrate control of the
+       corresponding private key.
 
-   2.  The proxy forwards these requests, along with the evidence for
-       verifing the operational status of the agent, to the server for
-       processing.
+   2.  The proxy forwards these requests, along with the attestation
+       evidence for verifing the operational status of the agent, to the
+       server for processing.
 
    3.  The server validates the evidence received from the proxy, and
        issues the corresponding identity credentials.
@@ -205,7 +208,6 @@ Table of Contents
      +----------------------------+
      |       Identity Server      |
      +-------------- ^ + ---------+
-                     | |
          (2)identity | |(3)identity
          credential  | | credential
          request &   | |
@@ -232,7 +234,11 @@ Table of Contents
    hardware to verify the operational status of the agent.  This
    information is used by a RATS Verifier (could be the server) to
    decide whether or not to issue the identity credential of an agent,
-   whether it is a bootstrapping or a renewal request.
+   whether it is a bootstrapping or a renewal request.  The structure
+   and claims of this evidence may refer to the Entity Attestation Token
+   (EAT) profile for Autonomous AI Agents [I-D.draft-messous-eat-ai-01],
+   which defines specialized claims for AI agent integrity, training
+   provenance, and runtime authorization.
 
 4.  Identity Binding Extensions for WIMSE
 
@@ -324,9 +330,7 @@ Table of Contents
    | Trust Domain    | |              +-------+          |
    |                 | |              | owner |          |
    |                 | |              +--^-+--+          |
-   |                 | |                 | |             |
    |                 | |       (a)request| |(b)signature |
-   |                 | |                 | |             |
    | +--------------++ v -------+ (1) +--+-v--+          |
    | |              |           ------+       |          |
    | |Identity Proxy| Agent API ------> Agent |          |
@@ -391,13 +395,11 @@ Table of Contents
      +----------------------------+
      |      Identity Server       |
      +------------------^-+-------+
-                        | |
          (b)request     | | (c)dual-identity
          (signature)    | |  credential
      +------------------+-v-------+
      |           Owner            |
      +------------------^-+-------+
-                        | |
          (a)request     | | (c)
    +--------------------+-+--------------------------------+
    | Trust Domain       | |                                |
@@ -567,6 +569,13 @@ Table of Contents
    [A2A-SPEC] "Agent2Agent (A2A) Protocol Specifications", October 2025,
               <https://a2a-protocol.org/latest/topics/enterprise-
               ready/>.
+
+   [I-D.draft-messous-eat-ai-01]
+              MESSOUS, A., Morand, L., and P. C. Liu, "Entity
+              Attestation Token (EAT) Profile for Autonomous AI Agents",
+              Work in Progress, Internet-Draft, draft-messous-eat-ai-01,
+              23 February 2026, <https://datatracker.ietf.org/doc/html/
+              draft-messous-eat-ai-01>.
 
    [I-D.draft-rosenberg-cheq-00]
               Rosenberg, J., White, P., and C. F. Jennings, "CHEQ: A
