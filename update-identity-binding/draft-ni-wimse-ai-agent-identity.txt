@@ -243,15 +243,15 @@ Table of Contents
 
 4.  Identity Binding Extensions for WIMSE
 
-   In the basic WIMSE architecture, the workload identity ensures a
-   trusted software entity is running in a secure environment.  However,
-   the agent often operates on behalf of a human user or an
-   organization.  Consequently, an agent requires a credential that
-   cryptographically binds its identity to its owner’s identity.  This
-   dual-identity credential provides a necessary foundation for access
-   control and accountability.  This section describes the necessity of
-   dual-identity credential through two representative use cases and
-   defines three operational models to issue it.
+   The basic WIMSE architecture ensures a trusted entity owns a trusted
+   workload identity that is secure to connect to.  However, the agent
+   often operates on behalf of a human user or an organization.
+   Consequently, an agent requires a credential that cryptographically
+   binds its identity to its owner’s identity.  This dual-identity
+   credential provides a necessary foundation for access control and
+   accountability.  This section describes the necessity of dual-
+   identity credential through two representative use cases and defines
+   three operational models to issue it.
 
 4.1.  Use Cases
 
