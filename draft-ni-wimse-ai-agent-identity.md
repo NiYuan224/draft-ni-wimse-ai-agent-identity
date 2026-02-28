@@ -147,7 +147,8 @@ In collaborative enterprise environments, it is essential to ensure that any age
 * Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for all cross-organization interactions.
 
 ## Issuance Models
-Identity binding can be intergrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound.
+Identity binding can be intergrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound. Before initiating the dual-identity issuance flow, a pre-established trust relationship must exist, where the Identity Server is provisioned with Trust Anchors (e.g., public keys, CA certificates, or hardware-backed credentials) to verify the Owner’s signature. The mechanism by which these trust anchors are established, distributed, or updated is out of scope of this document.
+
 
 ### Agent-Mediated (Owner-Pre-Signed)
 In this model, the owner acts as a local offline endoser, which provides a signature on the agent's request before it is submitted to the proxy. The identity binding phase, consisting of the following two steps, is added prior to the standard issuance flow defined in Figure 1:
