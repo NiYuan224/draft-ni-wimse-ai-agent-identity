@@ -143,7 +143,7 @@ Campus administrators require authentication of agents before granting access to
 
 In collaborative enterprise environments, it is essential to ensure that any agent requesting services is explicitly approved by its organization. This requirement spans the entire credential lifecycle, from issuance to interaction.
 
-* Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential.
+* Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential. In other words, dual-identity credential could be a manifestation of Human-in-the-Loop (HITL) mechanisms. 
 * Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for cross-organization interactions.
 
 ## Issuance Models
