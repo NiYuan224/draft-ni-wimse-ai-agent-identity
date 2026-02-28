@@ -299,7 +299,13 @@ Table of Contents
    Identity binding can be intergrated into the WIMSE workflow in
    several ways. we introduce the following three models according to
    the mediation point where the agent's identity and organizational
-   authority are cryptographically bound.
+   authority are cryptographically bound.  Before initiating the dual-
+   identity issuance flow, a pre-established trust relationship must
+   exist, where the Identity Server is provisioned with Trust Anchors
+   (e.g., public keys, CA certificates, or hardware-backed credentials)
+   to verify the Owner’s signature.  The mechanism by which these trust
+   anchors are established, distributed, or updated is out of scope of
+   this document.
 
 4.2.1.  Agent-Mediated (Owner-Pre-Signed)
 
