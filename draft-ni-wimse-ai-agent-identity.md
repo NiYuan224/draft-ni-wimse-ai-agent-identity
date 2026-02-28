@@ -128,7 +128,7 @@ In addition, this document introduces the following new terms:
 
 ## Attestation
 
-During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents {{I-D.draft-messous-eat-ai-01}}, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.
+During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to support identity server's decision of whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents {{I-D.draft-messous-eat-ai-01}}, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.
 
 
 # Identity Binding Extensions for WIMSE
