@@ -5,7 +5,7 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 31 August 2026                                 27 February 2026
+Expires: 1 September 2026                               28 February 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2026.
+   This Internet-Draft will expire on 1 September 2026.
 
 Copyright Notice
 
@@ -92,20 +92,20 @@ Table of Contents
    speed with minimal human intervention.  Without appropriate
    guardrails, they may give rise to significant risks:
 
-   1.  Blurred Network Boundaries: AI agents may operate across systems
-       and platforms, which expands attack surface and amplifies
-       security risks.
+   *  Blurred Network Boundaries: AI agents may operate across systems
+      and platforms, which expands attack surface and amplifies security
+      risks.
 
-   2.  Arbitrary and Unpredictable Access Patterns: AI agents may
-       perform unexpected actions or access sensitive resources
-       susceptible to malicious manipulation or logical errors.
+   *  Arbitrary and Unpredictable Access Patterns: AI agents may perform
+      unexpected actions or access sensitive resources susceptible to
+      malicious manipulation or logical errors.
 
-   3.  Lack of Accountability: Tracing an AI agent's actions is
-       inherently difficult, leading to difficulty to detect erroneous
-       behaviors.
+   *  Lack of Accountability: Tracing an AI agent's actions is
+      inherently difficult, leading to difficulty to detect erroneous
+      behaviors.
 
-   4.  Context Rot: A gradual degradation of their ability to maintain
-       relevant and coherent call contexts over time.
+   *  Context Rot: A gradual degradation of their ability to maintain
+      relevant and coherent call contexts over time.
 
    Therefore, for AI agents, the traditional perimeter-based security
    model has to transform into the identity-based security model, which
@@ -115,31 +115,30 @@ Table of Contents
    To realize this goal, a mechanism should be designed considering the
    following requirements:
 
-   1.  Independent, Trustworthy Identities: AI agents should have
-       independent and trustworthy identities and credentials, distinct
-       from those of devices and users.  This allows the AI agent to act
-       either on its own behalf or as a delegation of a user, have its
-       own access tokens and workflows.
+   *  Independent, Trustworthy Identities: AI agents should have
+      independent and trustworthy identities and credentials, distinct
+      from those of devices and users.  This allows the AI agent to act
+      either on its own behalf or as a delegation of a user, have its
+      own access tokens and workflows.
 
-   2.  Automated Credential Management: An automated mechanism is
-       necessary for managing credentials with reduced validity period
-       to minimize security exposure.
+   *  Automated Credential Management: An automated mechanism is
+      necessary for managing credentials with reduced validity period to
+      minimize security exposure.
 
-   3.  Minimal Privileged Access Tokens: AI agents should have task-
-       oriented, fine-grained access tokens with short validity periods.
+   *  Minimal Privileged Access Tokens: AI agents should have task-
+      oriented, fine-grained access tokens with short validity periods.
 
-   4.  Explicit Workflows: AI agents need explicit workflow management
-       in order to avoid random agentic access.  The workflow could be
-       long-termed and static, or could be short-termed and task-
-       triggered, but the call context must always be visible and
-       preserved.
+   *  Explicit Workflows: AI agents need explicit workflow management in
+      order to avoid random agentic access.  The workflow could be long-
+      termed and static, or could be short-termed and task-triggered,
+      but the call context must always be visible and preserved.
 
    This document discusses possibility of using WIMSE architecture to
    provide AI agent identities and credentials.  It accords with the
    original WIMSE use case in Section 3.3.1 Bootstrapping Workload
    Identifiers and Credentials of [I-D.ietf-wimse-arch-06].  We also
    discuss requirements of extending WIMSE architecture to bind
-   workload/AI agent identity to its user identity.
+   workload/AI agent identity to its owner's identity.
 
 2.  Conventions and Definitions
 
@@ -150,29 +149,36 @@ Table of Contents
    capitals, as shown here.
 
    This document uses terms and concepts defined by WIMSE architecture.
-   For a complete glossary please refer to [I-D.ietf-wimse-arch-06].
+   For a complete glossary please refer to [I-D.ietf-wimse-arch-06]:
 
-   1.  Trust Domain: A logical grouping of systems that share a common
-       set of security controls and policies.  Agent credentials are
-       issued under the authority of a trust domain.
+   *  Trust Domain: A logical grouping of systems that share a common
+      set of security controls and policies.  Agent credentials are
+      issued under the authority of a trust domain.
 
-   2.  AI Agent: The autonomous software entity that initiates the
-       credential request.  This document may refer to it as the
-       "agent", but is is essentially the workload instead of the agent
-       in the WIMSE architecture.
+   *  AI Agent: The autonomous software entity that initiates the
+      credential request.  This document may refer to it as the "agent",
+      but is is essentially the workload instead of the agent in the
+      WIMSE architecture.
 
-   3.  Identity Server: A trusted entity issuing agent identity and
-       credentials.  For simplicity, this document may refer to this
-       component as the "server".
+   *  Identity Server: A trusted entity issuing agent identity and
+      credentials.  For simplicity, this document may refer to this
+      component as the "server".
 
-   4.  Identity Proxy: An intermediary component that can request,
-       inspect, replace or augment agent identity credentials.  It
-       exposes an Agent API locally to agents.  For simplicity, this
-       document may refer to this component as the "proxy".
+   *  Identity Proxy: An intermediary component that can request,
+      inspect, replace or augment agent identity credentials.  It
+      exposes an Agent API locally to agents.  For simplicity, this
+      document may refer to this component as the "proxy".
 
-   5.  Owner: An entity (individual or organization) responsible for the
-       an AI Agent, which can provide a cryptographic signature to bind
-       the AI Agent identity to a specific principal.
+   In addition, this document introduces the following new terms: *
+   Owner: An entity (individual or organization) responsible for the an
+   AI Agent, which can provide a cryptographic signature to bind the AI
+   Agent identity to a specific principal.  Logically, an owner may
+   manifest in various forms, including a natural person (e.g., via a
+   manual confirmation process), a physical device (e.g., a hardware
+   security module), or an automated policy engine that grants approval
+   based on pre-defined security policies. * Dual-Identity Credential: A
+   credential that cryptographically binds the agent's identity to its
+   owner's identity.
 
 3.  Architecture
 

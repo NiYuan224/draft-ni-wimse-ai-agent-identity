@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ni &amp; Liu</td>
-<td class="center">Expires 31 August 2026</td>
+<td class="center">Expires 1 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ni-wimse-ai-agent-identity-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-02-27" class="published">27 February 2026</time>
+<time datetime="2026-02-28" class="published">28 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-08-31">31 August 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-01">1 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1121,7 +1121,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1233,37 +1233,37 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">AI agents are autonomous software entities that receive an intent, process contextual information, and execute decisions at machine speed with minimal human intervention. Without appropriate guardrails, they may give rise to significant risks:<a href="#section-1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-2">
-<li id="section-1-2.1">
+<ul class="normal">
+<li class="normal" id="section-1-2.1">
           <p id="section-1-2.1.1">Blurred Network Boundaries: AI agents may operate across systems and platforms, which expands attack surface and amplifies security risks.<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.2">
+        <li class="normal" id="section-1-2.2">
           <p id="section-1-2.2.1">Arbitrary and Unpredictable Access Patterns: AI agents may perform unexpected actions or access sensitive resources susceptible to malicious manipulation or logical errors.<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.3">
+        <li class="normal" id="section-1-2.3">
           <p id="section-1-2.3.1">Lack of Accountability: Tracing an AI agent's actions is inherently difficult, leading to difficulty to detect erroneous behaviors.<a href="#section-1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-2.4">
+        <li class="normal" id="section-1-2.4">
           <p id="section-1-2.4.1">Context Rot: A gradual degradation of their ability to maintain relevant and coherent call contexts over time.<a href="#section-1-2.4.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
+      </ul>
 <p id="section-1-3">Therefore, for AI agents, the traditional perimeter-based security model has to transform into the identity-based security model, which is a prequisite to implementing precise access control and ensuring security visibility.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">To realize this goal, a mechanism should be designed considering the following requirements:<a href="#section-1-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-5">
-<li id="section-1-5.1">
+<ul class="normal">
+<li class="normal" id="section-1-5.1">
           <p id="section-1-5.1.1">Independent, Trustworthy Identities: AI agents should have independent and trustworthy identities and credentials, distinct from those of devices and users. This allows the AI agent to act either on its own behalf or as a delegation of a user, have its own access tokens and workflows.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.2">
+        <li class="normal" id="section-1-5.2">
           <p id="section-1-5.2.1">Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity period to minimize security exposure.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.3">
+        <li class="normal" id="section-1-5.3">
           <p id="section-1-5.3.1">Minimal Privileged Access Tokens: AI agents should have task-oriented, fine-grained access tokens with short validity periods.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-1-5.4">
+        <li class="normal" id="section-1-5.4">
           <p id="section-1-5.4.1">Explicit Workflows: AI agents need explicit workflow management in order to avoid random agentic access. The workflow could be long-termed and static, or could be short-termed and task-triggered, but the call context must always be visible and preserved.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-1-6">This document discusses possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.3.1 Bootstrapping Workload Identifiers and Credentials of <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>. We also discuss requirements of extending WIMSE architecture to bind workload/AI agent identity to its user identity.<a href="#section-1-6" class="pilcrow">¶</a></p>
+      </ul>
+<p id="section-1-6">This document discusses possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.3.1 Bootstrapping Workload Identifiers and Credentials of <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>. We also discuss requirements of extending WIMSE architecture to bind workload/AI agent identity to its owner's identity.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1272,24 +1272,24 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
 <p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document uses terms and concepts defined by WIMSE architecture. For a complete glossary please refer to <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-3">
-<li id="section-2-3.1">
+<p id="section-2-2">This document uses terms and concepts defined by WIMSE architecture. For a complete glossary please refer to <span>[<a href="#I-D.ietf-wimse-arch-06" class="cite xref">I-D.ietf-wimse-arch-06</a>]</span>:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-3.1">
           <p id="section-2-3.1.1">Trust Domain: A logical grouping of systems that share a common set of security controls and policies. Agent credentials are issued under the authority of a trust domain.<a href="#section-2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.2">
+        <li class="normal" id="section-2-3.2">
           <p id="section-2-3.2.1">AI Agent: The autonomous software entity that initiates the credential request. This document may refer to it as the "agent", but is is essentially the workload instead of the agent in the WIMSE architecture.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.3">
+        <li class="normal" id="section-2-3.3">
           <p id="section-2-3.3.1">Identity Server: A trusted entity issuing agent identity and credentials. For simplicity, this document may refer to this component as the "server".<a href="#section-2-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.4">
+        <li class="normal" id="section-2-3.4">
           <p id="section-2-3.4.1">Identity Proxy: An intermediary component that can request, inspect, replace or augment agent identity credentials. It exposes an Agent API locally to agents. For simplicity, this document may refer to this component as the "proxy".<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-3.5">
-          <p id="section-2-3.5.1">Owner: An entity (individual or organization) responsible for the an AI Agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal.<a href="#section-2-3.5.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
+      </ul>
+<p id="section-2-4">In addition, this document introduces the following new terms:
+* Owner: An entity (individual or organization) responsible for the an AI Agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
+* Dual-Identity Credential: A credential that cryptographically binds the agent's identity to its owner's identity.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="architecture">
