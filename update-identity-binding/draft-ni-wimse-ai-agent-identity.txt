@@ -285,7 +285,9 @@ Table of Contents
       identity server may require organizational oversight.  By binding
       the agent's identity credential request to its corresponding
       organization, the server can verify the organizational approval
-      before issuing the credential.
+      before issuing the credential.  In other words, dual-identity
+      credential could be a manifestation of Human-in-the-Loop (HITL)
+      mechanisms.
 
    *  Interaction: When an agent accesses another agent or a service
       across organizational boundaries, authentication is necessary to
