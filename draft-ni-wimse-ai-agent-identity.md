@@ -41,6 +41,7 @@ normative:
 informative:
   I-D.ietf-wimse-arch-06:
   I-D.draft-rosenberg-cheq-00:
+  I-D.draft-messous-eat-ai-01:
   A2A-SPEC:
     title: "Agent2Agent (A2A) Protocol Specifications"
     date: 2025-10
@@ -84,8 +85,8 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 * Identity Proxy: An intermediary component that can request, inspect, replace or augment agent identity credentials. It exposes an Agent API locally to agents. For simplicity, this document may refer to this component as the "proxy".
 
 In addition, this document introduces the following new terms:
-* Owner: An entity (individual or organization) responsible for the an AI Agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
-* Dual-Identity Credential: A credential that cryptographically binds the agent's identity to its owner's identity.
+* Owner: An entity (individual or organization) responsible for the an agent, which can provide a cryptographic signature to bind the AI Agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
+* Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.
 
 # Architecture
 
@@ -93,8 +94,8 @@ In addition, this document introduces the following new terms:
    This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.	A basic workflow is shown in Figure 1.
 
 
-  1.	As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests.
-  2.	The proxy forwards these requests,  along with the evidence for verifing the operational status of the agent, to the server for processing.
+  1.	As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.
+  2.	The proxy forwards these requests,  along with the attestation evidence for verifing the operational status of the agent, to the server for processing.
   3. The server validates the evidence received from the proxy, and issues the corresponding identity credentials.
   4.	Once issued, the proxy forwards the agent identity credentials.
 
@@ -103,7 +104,6 @@ In addition, this document introduces the following new terms:
   +----------------------------+
   |       Identity Server      |
   +-------------- ^ + ---------+
-                  | |
       (2)identity | |(3)identity
       credential  | | credential
       request &   | |
@@ -128,7 +128,7 @@ In addition, this document introduces the following new terms:
 
 ## Attestation
 
-During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request.
+During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to decide whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents {{I-D.draft-messous-eat-ai-01}}, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.
 
 
 # Identity Binding Extensions for WIMSE
@@ -167,9 +167,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 | Trust Domain    | |              +-------+          |
 |                 | |              | owner |          |
 |                 | |              +--^-+--+          |
-|                 | |                 | |             |
 |                 | |       (a)request| |(b)signature |
-|                 | |                 | |             |
 | +--------------++ v -------+ (1) +--+-v--+          |
 | |              |           ------+       |          |
 | |Identity Proxy| Agent API ------> Agent |          |
@@ -202,13 +200,11 @@ Figure 3 shows a one-to-one mapping case between the owner and the proxy. In thi
   +----------------------------+
   |      Identity Server       |
   +------------------^-+-------+
-                     | |
       (b)request     | | (c)dual-identity
       (signature)    | |  credential
   +------------------+-v-------+
   |           Owner            |
   +------------------^-+-------+
-                     | |
       (a)request     | | (c)
 +--------------------+-+--------------------------------+
 | Trust Domain       | |                                |
