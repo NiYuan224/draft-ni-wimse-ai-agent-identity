@@ -234,10 +234,10 @@ b. The owner reviews the challenge, signs it, and returns the response to the se
 After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).
 
 ~~~~
-  +----------------------------+              +---- --+
+  +----------------------------+(a)challenge  +---- --+
   |                            +-------------->       |
   |       Identity Server      <--------------+ Owner |
-  |                            |              |       |
+  |                            |(b)signature  |       |
   +-------------- ^ +----------+              +---- --+
                (2)| |(3)
 +-----------------+-+-----------------------------------+
