@@ -455,10 +455,10 @@ Table of Contents
    identity binding, and issues the dual-identity credential to the
    agent via the proxy (steps 3 and 4).
 
-     +----------------------------+              +---- --+
+     +----------------------------+(a)challenge  +---- --+
      |                            +-------------->       |
      |       Identity Server      <--------------+ Owner |
-     |                            |              |       |
+     |                            |(b)signature  |       |
      +-------------- ^ +----------+              +---- --+
                   (2)| |(3)
    +-----------------+-+-----------------------------------+

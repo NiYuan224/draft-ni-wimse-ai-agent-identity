@@ -1486,10 +1486,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-4.2.3-5">After that, the server validates the owner's response, completes the identity binding, and issues the dual-identity credential to the agent via the proxy (steps 3 and 4).<a href="#section-4.2.3-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.3-6">
 <pre>
-  +----------------------------+              +---- --+
+  +----------------------------+(a)challenge  +---- --+
   |                            +--------------&gt;       |
   |       Identity Server      &lt;--------------+ Owner |
-  |                            |              |       |
+  |                            |(b)signature  |       |
   +-------------- ^ +----------+              +---- --+
                (2)| |(3)
 +-----------------+-+-----------------------------------+
