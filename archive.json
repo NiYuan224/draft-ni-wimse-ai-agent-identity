@@ -1,0 +1,362 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-03-01T02:41:29.518178+00:00",
+  "repo": "NiYuan224/draft-ni-wimse-ai-agent-identity",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDORZcYSs7GiBtr",
+      "title": "Update draft-ni-wimse-ai-agent-identity.md",
+      "url": "https://github.com/NiYuan224/draft-ni-wimse-ai-agent-identity/pull/1",
+      "state": "MERGED",
+      "author": "NiYuan224",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "rewrite the identity binding chapter:\r\n\r\n-  definition: cryptographically binding an AI agent to its owner (user or organization)\r\n-  two use cases\r\n-  three issuance model of dual-identity credential",
+      "createdAt": "2026-02-26T12:43:53Z",
+      "updatedAt": "2026-02-28T09:20:02Z",
+      "baseRepository": "NiYuan224/draft-ni-wimse-ai-agent-identity",
+      "baseRefName": "main",
+      "baseRefOid": "89a4138eb646fd6ffe50c66aca2a78f18bd4c7aa",
+      "headRepository": "NiYuan224/draft-ni-wimse-ai-agent-identity",
+      "headRefName": "update-identity-binding",
+      "headRefOid": "288c3222f26a281a5f9dedc0cf2661b77ea53405",
+      "closedAt": "2026-02-28T09:20:01Z",
+      "mergedAt": "2026-02-28T09:20:01Z",
+      "mergedBy": "NiYuan224",
+      "mergeCommit": {
+        "oid": "982cde0885dfb60c911ea7c62c254fe082c650dc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDORZcYSs7mWbcX",
+          "commit": {
+            "abbreviatedOid": "9d1ee24"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T03:23:42Z",
+          "updatedAt": "2026-02-27T03:23:42Z",
+          "comments": [
+            {
+              "originalPosition": 81,
+              "body": "````suggestion\n  +----------------------------+\n  |                            |\n  |       Identity Server      |\n  |                            |\n  +-------------- ^ + ---------+\n                  | |\n                  | |\n               (2)| |(3)\n+-----------------+-+---------------------------------+\n| Trust Domain    | |              +-------+          |\n|                 | |              |       |          |\n|                 | |              | owner |          |\n|                 | |              |       |          |\n|                 | |              +--^-+--+          |\n|                 | |                 | |             |\n|                 | |       (a)request| |(b)signature |\n|                 | |                 | |             |\n| +--------------++ v -------+ (1) +--+-v--+          |\n| |              |           ------+       |          |\n| |Identity Proxy| Agent API ------> Agent |          |\n| |              |           | (4) |       |          |\n| +--------------+----- ^ ---+     +-------+          |\n|-----------------------+-----------------------------+\n\n````",
+              "createdAt": "2026-02-27T03:23:42Z",
+              "updatedAt": "2026-02-27T03:23:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mWc0d",
+          "commit": {
+            "abbreviatedOid": "3707327"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T03:25:27Z",
+          "updatedAt": "2026-02-27T03:25:27Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "````suggestion\n  +----------------------------+\n````",
+              "createdAt": "2026-02-27T03:25:27Z",
+              "updatedAt": "2026-02-27T03:25:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mWfGf",
+          "commit": {
+            "abbreviatedOid": "84b40af"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T03:28:32Z",
+          "updatedAt": "2026-02-27T03:28:32Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "````suggestion\n~~~~\n````",
+              "createdAt": "2026-02-27T03:28:32Z",
+              "updatedAt": "2026-02-27T03:28:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mWgkr",
+          "commit": {
+            "abbreviatedOid": "4288a7a"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T03:30:36Z",
+          "updatedAt": "2026-02-27T03:30:36Z",
+          "comments": [
+            {
+              "originalPosition": 74,
+              "body": "````suggestion\n~~~~\n````",
+              "createdAt": "2026-02-27T03:30:36Z",
+              "updatedAt": "2026-02-27T03:30:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mZiVm",
+          "commit": {
+            "abbreviatedOid": "15570e6"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T07:32:20Z",
+          "updatedAt": "2026-02-27T07:32:21Z",
+          "comments": [
+            {
+              "originalPosition": 136,
+              "body": "````suggestion\n  +----------------------------+\n  |                            |\n  |      Identity Server       |\n  |                            |\n  +------------------^-+-------+\n                     | |\n      (b)request     | | (c)dual-identity\n      (signature)    | |  credential\n  +------------------+-v-------+\n  |                            |\n  |           Owner            |\n  |                            |\n  +------------------^-+-------+\n                     | |\n      (a)request     | | (d)dual-identity credential\n````",
+              "createdAt": "2026-02-27T07:32:20Z",
+              "updatedAt": "2026-02-27T07:32:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mZjEK",
+          "commit": {
+            "abbreviatedOid": "8760dca"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T07:33:13Z",
+          "updatedAt": "2026-02-27T07:33:13Z",
+          "comments": [
+            {
+              "originalPosition": 122,
+              "body": "````suggestion\n  +----------------------------+\n````",
+              "createdAt": "2026-02-27T07:33:13Z",
+              "updatedAt": "2026-02-27T07:33:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mZnc8",
+          "commit": {
+            "abbreviatedOid": "41b1703"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T07:37:48Z",
+          "updatedAt": "2026-02-27T07:37:48Z",
+          "comments": [
+            {
+              "originalPosition": 136,
+              "body": "````suggestion\n                     | |\n````",
+              "createdAt": "2026-02-27T07:37:48Z",
+              "updatedAt": "2026-02-27T07:37:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7maY2L",
+          "commit": {
+            "abbreviatedOid": "e10daf7"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T08:33:22Z",
+          "updatedAt": "2026-02-27T08:33:23Z",
+          "comments": [
+            {
+              "originalPosition": 142,
+              "body": "````suggestion\nFigure 3 shows a one-to-one mapping case between the owner and the proxy. In this case, the function of owner can be integrated directly into the proxy, collapsing the hierarchy into a single entity to simplify the deployment. Moreover, this model also supports a one-to-many topology, allowing a central owner to manage multiple proxies across various trust domains.\n````",
+              "createdAt": "2026-02-27T08:33:22Z",
+              "updatedAt": "2026-02-27T08:33:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7me0Su",
+          "commit": {
+            "abbreviatedOid": "59bb7b9"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T13:01:29Z",
+          "updatedAt": "2026-02-27T13:01:29Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "````suggestion\n agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner\u2019s local private keys are not protected by hardware (e.g., TPM), an attacker can forge approvals.\n````",
+              "createdAt": "2026-02-27T13:01:29Z",
+              "updatedAt": "2026-02-27T13:01:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7me4FH",
+          "commit": {
+            "abbreviatedOid": "6bfafcb"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T13:05:17Z",
+          "updatedAt": "2026-02-27T13:05:17Z",
+          "comments": [
+            {
+              "originalPosition": 144,
+              "body": "````suggestion\n agent may manipulate human users to approve malicious request. Second is the compromise of signing keys: if the owner\u2019s local private keys are not protected by hardware (e.g., TPM), an attacker can forge approvals.\n````",
+              "createdAt": "2026-02-27T13:05:17Z",
+              "updatedAt": "2026-02-27T13:05:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mf2gY",
+          "commit": {
+            "abbreviatedOid": "012886b"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T14:02:51Z",
+          "updatedAt": "2026-02-27T14:02:51Z",
+          "comments": [
+            {
+              "originalPosition": 216,
+              "body": "````suggestion\n* Typical Application Scenarios: This model is suitable for scenarios requiring independent and real-time confirmation from an owner who is not involved in the initial request path. For instance, An agent is deployed by a service provider on behalf of an organization. When the agent requests an identity credential, the server initiates an out-of-band verification directly to the administrative center.\n````",
+              "createdAt": "2026-02-27T14:02:51Z",
+              "updatedAt": "2026-02-27T14:02:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mr3HI",
+          "commit": {
+            "abbreviatedOid": "c9a866b"
+          },
+          "author": "liuchunchi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-02-28T08:39:19Z",
+          "updatedAt": "2026-02-28T09:04:52Z",
+          "comments": [
+            {
+              "originalPosition": 112,
+              "body": "```suggestion\nDuring the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to support identity server's decision of whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents {{I-D.draft-messous-eat-ai-01}}, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.\n```",
+              "createdAt": "2026-02-28T08:39:19Z",
+              "updatedAt": "2026-02-28T09:04:52Z"
+            },
+            {
+              "originalPosition": 116,
+              "body": "```suggestion\nThe basic WIMSE architecture ensures a trusted entity owns a trusted workload identity that is secure to connect to. However, the agent often operates on behalf of a human user or an organization. Consequently, an agent requires a credential that cryptographically binds its identity to its owner\u2019s identity. This dual-identity credential provides a necessary foundation for access control and accountability. This section describes the necessity of dual-identity credential through two representative use cases and defines three operational models to issue it.\n```",
+              "createdAt": "2026-02-28T08:41:55Z",
+              "updatedAt": "2026-02-28T09:04:52Z"
+            },
+            {
+              "originalPosition": 121,
+              "body": "```suggestion\nCampus administrators require authentication of agents before granting access to internal network via authentication protocols such as IEEE 802.1X (e.g., using EAP-TLS). In this scenario, the Authentication Server must verify the agent's credential and determine its network privileges. A single-identity credential only allows the Authentication Server to identify the agent itself. Without further information, Authentication Server may treat the agent as a guest, providing only limited public access or rejecting the request to protect sensitive zones. A dual-identity credential allows the Authentication Server to verify both the agent's identity and the specific user or department it represents. For instance, an agent representing Alice from the R&D department can be identified as a trusted entity, and can receive proper access privileges according to existing IAM information (like RBAC). This enables the network to implement user-specific segmentation, such as automatically assigning the agent to the R&D VLAN rather than a guest network.\n```",
+              "createdAt": "2026-02-28T08:43:55Z",
+              "updatedAt": "2026-02-28T09:04:52Z"
+            },
+            {
+              "originalPosition": 129,
+              "body": "```suggestion\n* Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential. In other words, dual-identity credential could be a manifestation of Human-in-the-Loop (HITL) mechanisms. \n```",
+              "createdAt": "2026-02-28T08:48:46Z",
+              "updatedAt": "2026-02-28T09:04:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORZcYSs7mr70P",
+          "commit": {
+            "abbreviatedOid": "ef1fcf1"
+          },
+          "author": "github-actions",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-28T09:15:56Z",
+          "updatedAt": "2026-02-28T09:15:56Z",
+          "comments": [
+            {
+              "originalPosition": 130,
+              "body": "````suggestion\n* Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential. In other words, dual-identity credential could be a manifestation of Human-in-the-Loop (HITL) mechanisms.\n````",
+              "createdAt": "2026-02-28T09:15:56Z",
+              "updatedAt": "2026-02-28T09:15:56Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
