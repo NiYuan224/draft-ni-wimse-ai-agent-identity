@@ -5,7 +5,7 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 1 September 2026                               28 February 2026
+Expires: 15 September 2026                                 14 March 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2026.
+   This Internet-Draft will expire on 15 September 2026.
 
 Copyright Notice
 
@@ -70,7 +70,8 @@ Table of Contents
      3.2.  Attestation
    4.  Identity Binding Extensions for WIMSE
      4.1.  Use Cases
-       4.1.1.  Cross-organization Interaction
+       4.1.1.  Network Access Control in Campus
+       4.1.2.  Cross-organization Interaction
      4.2.  Issuance Models
        4.2.1.  Agent-Mediated (Owner-Pre-Signed)
        4.2.2.  Owner-Mediated (Gateway Mode)
@@ -255,7 +256,7 @@ Table of Contents
 
 4.1.  Use Cases
 
-   ### Network Access Control in Campus
+4.1.1.  Network Access Control in Campus
 
    Campus administrators require authentication of agents before
    granting access to internal network via authentication protocols such
@@ -274,7 +275,7 @@ Table of Contents
    implement user-specific segmentation, such as automatically assigning
    the agent to the R&D VLAN rather than a guest network.
 
-4.1.1.  Cross-organization Interaction
+4.1.2.  Cross-organization Interaction
 
    In collaborative enterprise environments, it is essential to ensure
    that any agent requesting services is explicitly approved by its
