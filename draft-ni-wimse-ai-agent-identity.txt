@@ -495,7 +495,7 @@ Table of Contents
 
    The owner can leverage the hardware root of trust to generate
    cryptographic signatures, thus binding an agent to a specific
-   hardware device.  Consequently, this attestation model allows
+   hardware device.  Consequently, the above issuance models allow
    multiple virtual agent identities to be derived from a single
    hardware root of trust.
 
