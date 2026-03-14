@@ -76,6 +76,7 @@ Table of Contents
        4.2.1.  Agent-Mediated (Owner-Pre-Signed)
        4.2.2.  Owner-Mediated (Gateway Mode)
        4.2.3.  Server-Mediated (Challenge-Response)
+     4.3.  Hardware Root of Trust
    5.  Comparison with CHEQ
    6.  Initial Trust Establishment
    7.  Security Considerations
@@ -489,6 +490,14 @@ Table of Contents
       Without nonces or mutual authentication, an attacker could
       intercept this channel to perform response forgery or replay
       attacks.
+
+4.3.  Hardware Root of Trust
+
+   The owner can leverage the hardware root of trust to generate
+   cryptographic signatures, thus binding an agent to a specific
+   hardware device.  Consequently, this attestation model allows
+   multiple virtual agent identities to be derived from a single
+   hardware root of trust.
 
 5.  Comparison with CHEQ
 
