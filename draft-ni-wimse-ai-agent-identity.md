@@ -33,6 +33,12 @@ author:
     organization: Huawei
     email: liuchunchi@huawei.com
 
+-
+    fullname: Michael Richardson
+    organization: Sandelman Software Works
+    email:	mcr+ietf@sandelman.ca
+
+
 normative:
   RFC8995:
   RFC7030:
@@ -86,6 +92,7 @@ This document uses terms and concepts defined by WIMSE architecture. For a compl
 * Identity Proxy: An intermediary component that can request, inspect, replace or augment agent identity credentials. It exposes an Agent API locally to agents. For simplicity, this document may refer to this component as the "proxy".
 
 In addition, this document introduces the following new terms:
+
 * Owner: An entity (individual or organization) responsible for the an agent, which can provide a cryptographic signature to bind the agent identity to a specific principal. Logically, an owner may manifest in various forms, including a natural person (e.g., via a manual confirmation process), a physical device (e.g., a hardware security module), or an automated policy engine that grants approval based on pre-defined security policies.
 * Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.
 
