@@ -5,7 +5,9 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 15 September 2026                                 14 March 2026
+Expires: 25 September 2026                                 M. Richardson
+                                                Sandelman Software Works
+                                                           24 March 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -45,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 September 2026.
+   This Internet-Draft will expire on 25 September 2026.
 
 Copyright Notice
 
@@ -171,17 +173,20 @@ Table of Contents
       exposes an Agent API locally to agents.  For simplicity, this
       document may refer to this component as the "proxy".
 
-   In addition, this document introduces the following new terms: *
-   Owner: An entity (individual or organization) responsible for the an
-   agent, which can provide a cryptographic signature to bind the agent
-   identity to a specific principal.  Logically, an owner may manifest
-   in various forms, including a natural person (e.g., via a manual
-   confirmation process), a physical device (e.g., a hardware security
-   module), or an automated policy engine that grants approval based on
-   pre-defined security policies. * Dual-Identity Credential: A
-   credential that contains the identifiers and associated public keys
-   of both an agent and its owner.  The credential is cryptographically
-   bound to both entities.
+   In addition, this document introduces the following new terms:
+
+   *  Owner: An entity (individual or organization) responsible for the
+      an agent, which can provide a cryptographic signature to bind the
+      agent identity to a specific principal.  Logically, an owner may
+      manifest in various forms, including a natural person (e.g., via a
+      manual confirmation process), a physical device (e.g., a hardware
+      security module), or an automated policy engine that grants
+      approval based on pre-defined security policies.
+
+   *  Dual-Identity Credential: A credential that contains the
+      identifiers and associated public keys of both an agent and its
+      owner.  The credential is cryptographically bound to both
+      entities.
 
 3.  Architecture
 
@@ -626,3 +631,8 @@ Authors' Addresses
    Chunchi Peter Liu
    Huawei
    Email: liuchunchi@huawei.com
+
+
+   Michael Richardson
+   Sandelman Software Works
+   Email: mcr+ietf@sandelman.ca
