@@ -35,14 +35,20 @@ author:
  -
     fullname: Michael Richardson
     organization: Sandelman Software Works
-    email:	mcr+ietf@sandelman.ca
+    email: mcr+ietf@sandelman.ca
 
 
 normative:
   RFC9334:
+  RFC8995:
+  RFC7030:
+  RFC2119:
+  RFC8174:
 informative:
   I-D.ietf-wimse-aims:
   I-D.ietf-rats-endorsements:
+  I-D.ietf-wimse-arch:
+  I-D.ietf-wimse-workload-creds:
 
 
 
@@ -54,7 +60,7 @@ This document describes an identity endorsement mechanism for AI agents. During 
 
 --- middle
 
-# Introduction 
+# Introduction
 
 AI agents are workloads that use credentials to represent their identity and authenticate to other workloads {{I-D.ietf-wimse-aims}}. However, an Agent is not in a position to self-assert which individual or organization is accountable for its operation. Such information therefore needs to be asserted by a separate trusted entity.
 
@@ -69,18 +75,19 @@ This document introduces identity endorsement for AI agents. During credential p
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-This document uses terms and concepts defined in the WIMSE Architecture {{?I-D.ietf-wimse-arch}}, WIMSE Workload Credentials {{?I-D.ietf-wimse-workload-creds}}, and AIMS {{?I-D.ietf-wimse-aims}}, including Trust Domain, Workload Identity Credential, Identity Proxy, and AI Agent.
+This document uses terms and concepts defined in the WIMSE Architecture {{I-D.ietf-wimse-arch}}, WIMSE Workload Credentials {{I-D.ietf-wimse-workload-creds}}, and AIMS {{I-D.ietf-wimse-aims}}, including Trust Domain, Workload Identity Credential, Identity Proxy, and AI Agent.
 
 The following terms extend the Endorser and Endorsement concepts defined in the RATS architecture {{RFC9334}}:
 
 * Endorser: A role performed by an entity (typically an individual or organization accountable for an Agent) whose Identity Endorsements may help Identity Servers verify the relationship between the Agent identity and the principal accountable for the Agent.
-  
-* Identity Endorsement：A secure statement that an Endorser vouches for its relationship with an Agent identity and its accountability for the Agent's operation.
+
+* Identity Endorsement: A secure statement that an Endorser vouches for its relationship with an Agent identity and its accountability for the Agent's operation.
 
 # Architecture
 
 ## Bootstrapping AI Agent Identity and Credentials
-   This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.	A basic workflow is shown in Figure 1.
+
+This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.	A basic workflow is shown in Figure 1.
 
 
   1.	As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.
@@ -117,7 +124,7 @@ The following terms extend the Endorser and Endorsement concepts defined in the 
 
 ## Attestation
 
-During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to support identity server's decision of whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents {{I-D.draft-messous-eat-ai-01}}, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.
+During the request and issuance of identity credentials, the proxy should gather attestation evidence from the operating system and hardware to verify the operational status of the agent. This information is used by a RATS Verifier (could be the server) to support identity server's decision of whether or not to issue the identity credential of an agent, whether it is a bootstrapping or a renewal request. The structure and claims of this evidence may refer to the Entity Attestation Token (EAT) profile for Autonomous AI Agents, which defines specialized claims for AI agent integrity, training provenance, and runtime authorization.
 
 
 # Identity Binding Extensions for WIMSE
@@ -134,7 +141,7 @@ Campus administrators require authentication of agents before granting access to
 In collaborative enterprise environments, it is essential to ensure that any agent requesting services is explicitly approved by its organization. This requirement spans the entire credential lifecycle, from issuance to interaction.
 
 * Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By binding the agent's identity credential request to its corresponding organization, the server can verify the organizational approval before issuing the credential. In other words, dual-identity credential could be a manifestation of Human-in-the-Loop (HITL) mechanisms.
-* Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol{{A2A-SPEC}} and WIMSE architecture{{I-D.ietf-wimse-arch-06}}. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for cross-organization interactions.
+* Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the A2A protocol and WIMSE architecture{{I-D.ietf-wimse-arch}}. A dual-identity credential carries an organizational approval, which provides a strong basis for trust, ensuring both accountability and traceability for cross-organization interactions.
 
 ## Issuance Models
 Identity binding can be integrated into the WIMSE workflow in several ways. we introduce the following three models according to the mediation point where the agent's identity and organizational authority are cryptographically bound. Before initiating the dual-identity issuance flow, a pre-established trust relationship must exist, where the identity server is provisioned with trust anchors (e.g., public keys, CA certificates, or hardware-backed credentials) to verify the owner’s signature. The mechanism by which these trust anchors are established, distributed, or updated is out of scope of this document.
@@ -175,7 +182,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 ### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
 
-Such a mechanism is intergrated in the basic architecture as shown in Figure 3. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then：
+Such a mechanism is intergrated in the basic architecture as shown in Figure 3. Firstly, the agent generates an identity credential request and sends it to the proxy(step 1), then:
 
 a. The proxy intercepts the request and relays it to the owner for administrative inspection.
 
@@ -249,7 +256,7 @@ After that, the server validates the owner's response, completes the identity bi
 The owner can leverage the hardware root of trust to generate cryptographic signatures, thus binding an agent to a specific hardware device. Consequently, the above issuance models allow multiple virtual agent identities to be derived from a single hardware root of trust.
 
 # Comparison with CHEQ
-While both this document and CHEQ {{?I-D.draft-rosenberg-cheq-00}} introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
+While both this document and CHEQ introduce a human element to enhance security,  their goals and the underlying mechanisms are different.
 
 CHEQ focuses primarily on controlling the actions of AI agents. It requires user double confirmation when an AI Agent invokes an OAuth access token request, preventing possible deviation from user expectations.
 
@@ -259,11 +266,11 @@ The purpose of this document is to provide distinct identity and credentials to 
 
 AI agents may operate in cloud or campus. In the cloud, the initial trust establishment between the proxy and the server has already been solved by solutions like SPIRE.  However, in campus scenarios,  the heterogeneity and limited manageability of devices make credential provisioning challenging, complicating initial trust establishment.
 
-BRSKI {{RFC8995}} provides a feasible method by introducing a cryptographically signed artifact called “voucher”.
+BRSKI provides a feasible method by introducing a cryptographically signed artifact called “voucher”.
 
 In the BRSKI flow, the proxy (acting as a BRSKI pledge) discovers the server (acting as a BRSKI registrar), initiates a TLS handshake, and sends a voucher request including its immutable manufacturer credential—the IDevID (Initial Device Identifier). The server uses this IDevID to contact the manufacturer's service (MASA). After validating the request, the MASA issues a signed voucher.
 
-The proxy then verifies the manufacturer's signature on the voucher, which securely transferring trust from the manufacturer to the local domain. This verified trust is a prerequisite for the server to issue a local domain device certificate (LDevID). This certificate enrollment step essentially follows the standard EST mechanism {{RFC7030}}.
+The proxy then verifies the manufacturer's signature on the voucher, which securely transferring trust from the manufacturer to the local domain. This verified trust is a prerequisite for the server to issue a local domain device certificate (LDevID). This certificate enrollment step essentially follows the standard EST mechanism.
 
 However, it should be noted that BRSKI is not necessarily the only way to achieve this secure integration. The core goal is to bridge the initial trust gap. If the proxy is pre-configured with the target server's public key or certificate and can securely locate it, the standard EST protocol alone may be sufficient to establish trust and obtain the LDevID certificate.
 
