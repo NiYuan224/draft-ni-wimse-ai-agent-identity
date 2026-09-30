@@ -54,46 +54,45 @@ informative:
 
 --- abstract
 
-AI agents are workloads that use credentials to represent their identity and authenticate to other workloads. However, an Agent credential does not by itself establish who is accountable for the Agent's operation. Such accountability may be required for auditing and compliance.
+AI Agents are workloads that use Identity Credentials to represent their identity and authenticate to other workloads. However, an Agent Identity Credential does not by itself establish who is accountable for the Agent's operation. Such accountability may be required for auditing and compliance.
 
-This document describes an identity endorsement mechanism for AI agents. During credential provisioning, one or more Endorsers may provide Identity Endorsements that vouch for their relationship with an Agent identity. The Identity Server verifies the endorsements and cryptographically binds the Agent identity to its endorsers in the issued Agent credential.
+This document describes an identity endorsement mechanism for AI Agents. During credential provisioning, one or more Endorsers may provide Identity Endorsements that vouch for their relationship with an Agent identity. The Identity Server verifies the endorsements and issues an agent Identity Credential that cryptographically binds the Agent identity to its endorsers.
 
 --- middle
 
 # Introduction
 
-AI agents are workloads that use credentials to represent their identity and authenticate to other workloads {{I-D.ietf-wimse-aims}}. However, an Agent is not in a position to self-assert which individual or organization is accountable for its operation. Such information therefore needs to be asserted by a separate trusted entity.
+AI Agents are workloads that use credentials to represent their identity and authenticate to other workloads {{I-D.ietf-wimse-aims}}. However, an Agent is not in a position to self-assert which individual or organization is accountable for its operation. Such information therefore needs to be asserted by a trusted party other than the Agent.
 
 In the RATS architecture, an Endorser is a role distinct from the Attester, capable of providing claims regarding properties that the Attester cannot self-assert {{I-D.ietf-rats-endorsements}}. Building on this concept, this document applies endorsement to Agent identity, allowing an Endorser to vouch for its relationship with an Agent.
 
-This need is already reflected in emerging Agent identity systems. Microsoft Entra Agent ID requires each Agent identity to have a Sponsor, who is accountable for the Agent's purpose, lifecycle decisions, and access reviews. Okta for AI Agents similarly requires AI agents to be registered with clear human ownership to strengthen accountability, governance, and compliance. These examples demonstrate a common need to associate an Agent identity with the principal accountable for it.
+This need is already reflected in emerging Agent identity management systems. Microsoft Entra Agent ID requires each Agent identity to have a Sponsor, who is accountable for the Agent's purpose, lifecycle decisions, and access reviews. Okta for AI Agents similarly requires AI agents to be registered with clear human ownership to strengthen accountability, governance, and compliance. These examples demonstrate a common need to associate an Agent identity with the principal accountable for it.
 
-This document introduces identity endorsement for AI agents. During credential provisioning, one or more Endorsers may provide cryptographically verifiable endorsements for an Agent identity. The Identity Server verifies the endorsements and binds the verified endorsement relationships to the issued Agent credential.
-
+This document introduces identity endorsement for AI agents. During credential provisioning, one or more Endorsers may provide cryptographically verifiable endorsements for an Agent identity. The Identity Server verifies the endorsements and issues an agent Identity Credential that cryptographically binds the Agent identity to its endorsers.
 
 # Conventions and Definitions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-This document uses terms and concepts defined in the WIMSE Architecture {{I-D.ietf-wimse-arch}}, WIMSE Workload Credentials {{I-D.ietf-wimse-workload-creds}}, and AIMS {{I-D.ietf-wimse-aims}}, including Trust Domain, Workload Identity Credential, Identity Proxy, and AI Agent.
+This document uses terms and concepts defined in the WIMSE Architecture {{I-D.ietf-wimse-arch}}, WIMSE Workload Credentials {{I-D.ietf-wimse-workload-creds}}, and AIMS {{I-D.ietf-wimse-aims}}, including Trust Domain, Identity Server, Identity Credential, Identity Proxy, and AI Agent.
 
 The following terms extend the Endorser and Endorsement concepts defined in the RATS architecture {{RFC9334}}:
 
-* Endorser: A role performed by an entity (typically an individual or organization accountable for an Agent) whose Identity Endorsements may help Identity Servers verify the relationship between the Agent identity and the principal accountable for the Agent.
+* Endorser: A role performed by an entity (typically an individual or organization accountable for an Agent) whose Identity Endorsements may help Identity Servers verify the relationship between the Agent identity and the principal accountable for the Agent. Depending on the deployment, an Endorser may be an Agent user, an Agent service provider, or an Agent developer.
 
 * Identity Endorsement: A secure statement that an Endorser vouches for its relationship with an Agent identity and its accountability for the Agent's operation.
 
 # Architecture
 
-## Bootstrapping AI Agent Identity and Credentials
+## Baseline AI Agent Identity Credential Provisioning
 
-This document presumes that the identity server has already been issued a signing certificate which has set keyCertSign in the key usage extension. The server and the proxy are assumed to have established a secure channel.	A basic workflow is shown in Figure 1.
+The Server and the Proxy are assumed to have established a secure channel. A basic workflow is shown in Figure 1.
 
 
-  1.	As an intermediary between the server and the agents, the proxy provides an agent API that agents can use to initiate identity credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.
-  2.	The proxy forwards these requests,  along with the attestation evidence for verifing the operational status of the agent, to the server for processing.
-  3. The server validates the evidence received from the proxy, and issues the corresponding identity credentials.
-  4.	Once issued, the proxy forwards the agent identity credentials.
+  1.	As an intermediary between the Server and the Agents, the Proxy provides an Agent API that Agents can use to initiate Identity Credential requests. These requests include a public key and a signature as proof-of-possession to demonstrate control of the corresponding private key.
+  2.	The Proxy forwards these requests, along with the attestation evidence for verifying the operational status of the Agent, to the Server for processing.
+  3. The Server validates the evidence received from the Proxy, and issues the corresponding Identity Credentials.
+  4.	Once issued, the Proxy forwards the Agent Identity Credentials.
 
 ~~~~
 
