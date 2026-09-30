@@ -275,9 +275,11 @@ This document has no IANA actions.
 Document History
 
 * Since Draft 01
+
 - Added three identity binding models.
 
 * Since Draft 02
+
 - Fixed editorial issues, and streamlined the content.
 
 --- back
