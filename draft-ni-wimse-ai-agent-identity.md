@@ -65,7 +65,7 @@ Therefore, for AI agents, the traditional perimeter-based security model has to 
 To realize this goal, a mechanism should be designed considering the following requirements:
 
 * Independent, Trustworthy Identities: AI agents should have independent and trustworthy identities and credentials, distinct from those of devices and users. This allows the AI agent to act as an independently identifiable workload while maintaining a verifiable relationship with the entity accountable for its operation.
-* Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity period to minimize security exposure.
+* Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity periods to minimize security exposure.
 * Minimal Privileged Access Tokens: AI agents should have task-oriented, fine-grained access tokens with short validity periods.
 * Explicit Workflows: AI agents need explicit workflow management in order to avoid random agentic access. The workflow could be long-term and static, or could be short-term and task-triggered, but the call context must always be visible and preserved.
 
@@ -85,7 +85,7 @@ This document uses terms and concepts defined by the WIMSE architecture. For a c
 In addition, this document introduces the following new terms:
 
 * Owner: An entity (individual or organization) accountable for the operation of an agent and capable of providing a cryptographic signature to establish a verifiable relationship with the agent identity. The owner's approval may be provided through mechanisms such as manual confirmation, a hardware security module, or an automated policy engine based on pre-defined security policies.
-* Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.
+* Dual-Identity Credential: A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.
 
 # Architecture
 
@@ -147,7 +147,7 @@ In collaborative enterprise environments, it is essential to ensure that an agen
 
 * Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By requiring the accountable organization to approve the credential request, the server can establish a cryptographically verifiable relationship between the agent identity and the accountable organization before issuing the credential.
 
-* Interaction: When an agent accesses another agent or a service across organizational boundaries, A dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.
+* Interaction: When an agent accesses another agent or a service across organizational boundaries, a dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.
 
 ## Issuance Models
 Identity binding can be integrated into the WIMSE workflow in several ways. The following three models differ in where the binding between the agent identity and the accountable owner is established. Before initiating the dual-identity issuance flow, a pre-established trust relationship must exist, where the identity server is provisioned with trust anchors (e.g., public keys, CA certificates, or hardware-backed credentials) to verify the owner’s signature. The mechanism by which these trust anchors are established, distributed, or updated is out of scope of this document.
@@ -188,7 +188,7 @@ The following steps are similar to the basic architecture, that is, the agent se
 ### Owner-Mediated (Gateway Mode)
 In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.
 
-Such a mechanism is integrated into the basic architecture as shown in Figure 3. First, the agent generates and signs an identity credential request and sends it to the proxy(step 1), then：
+Such a mechanism is integrated into the basic architecture as shown in Figure 3. First, the agent generates and signs an identity credential request and sends it to the proxy (step 1), then：
 
 a. The proxy intercepts the request and relays it to the owner for administrative inspection.
 
