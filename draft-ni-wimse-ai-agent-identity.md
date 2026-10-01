@@ -69,7 +69,7 @@ To realize this goal, a mechanism should be designed considering the following r
 * Minimal Privileged Access Tokens: AI agents should have task-oriented, fine-grained access tokens with short validity periods.
 * Explicit Workflows: AI agents need explicit workflow management in order to avoid random agentic access. The workflow could be long-term and static, or could be short-term and task-triggered, but the call context must always be visible and preserved.
 
-This document discusses the possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.3.1 Bootstrapping Workload Identifiers and Credentials of {{?I-D.ietf-wimse-arch}}. We also discuss requirements for extending the WIMSE architecture to bind an AI agent identity to the identity of an accountable user or organization.
+This document discusses the possibility of using WIMSE architecture to provide AI agent identities and credentials. It accords with the original WIMSE use case in Section 3.4.1 Bootstrapping Workload Identifiers and Credentials of {{?I-D.ietf-wimse-arch}}. We also discuss requirements for extending the WIMSE architecture to bind an AI agent identity to the identity of an accountable user or organization.
 
 # Conventions and Definitions
 
@@ -147,7 +147,7 @@ In collaborative enterprise environments, it is essential to ensure that an agen
 
 * Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By requiring the accountable organization to approve the credential request, the server can establish a cryptographically verifiable relationship between the agent identity and the accountable organization before issuing the credential.
 
-* Interaction: When an agent accesses another agent or a service across organizational boundaries, authentication is necessary to ensure the request is from a valid entity, as illustrated in the WIMSE architecture{{I-D.ietf-wimse-arch}}. A dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.
+* Interaction: When an agent accesses another agent or a service across organizational boundaries, A dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.
 
 ## Issuance Models
 Identity binding can be integrated into the WIMSE workflow in several ways. The following three models differ in where the binding between the agent identity and the accountable owner is established. Before initiating the dual-identity issuance flow, a pre-established trust relationship must exist, where the identity server is provisioned with trust anchors (e.g., public keys, CA certificates, or hardware-backed credentials) to verify the owner’s signature. The mechanism by which these trust anchors are established, distributed, or updated is out of scope of this document.
@@ -192,7 +192,7 @@ Such a mechanism is integrated into the basic architecture as shown in Figure 3.
 
 a. The proxy intercepts the request and relays it to the owner for administrative inspection.
 
-b. The owner reviews and countersigns the request. It then forwards the countersigned request to the server, along with additional organizational materials, such as an organizational credential.
+b. The owner reviews and countersigns the request. It then forwards the countersigned request to the server.
 
 c. The server verifies both signatures and issues the dual-identity credential back to the owner, who then dispatches it to the proxy.
 
@@ -223,7 +223,7 @@ Figure 3 shows a one-to-one mapping case between the owner and the proxy. In thi
 
 * Typical Application Scenarios: This model is ideal for enterprise governance. Since the owner sits in the middle, it acts as a gateway to ensure that no request reaches the server unless it complies with enterprise security policies and compliance requirements. It is particularly suitable for hierarchical environments where the owner acts as a centralized gateway for multiple proxies.
 
-* Attack Surface: The owner becomes a high-value target and a single point of failure. If it is compromised, an attacker can forge approvals for any agent across the managed proxies. To mitigate this, mutual authentication and cryptographic integrity are mandatory between proxies and the owner. Furthermore, as a centralized gateway, the owner is vulnerable to Denial-of-Service attacks. It is essential to implement rate limiting and request queuing.
+* Attack Surface: The owner becomes a high-value target and a single point of failure. If it is compromised, an attacker can forge approvals for any agent across the managed proxies. Furthermore, as a centralized gateway, the owner is vulnerable to Denial-of-Service attacks. It is essential to implement rate limiting and request queuing.
 
 ### Server-Mediated (Challenge-Response)
 In this model, the owner acts as an independent verifier. The server orchestrates the binding phase by contacting the owner as a separate step in the issuance logic, decoupling the binding from the agent's request.
@@ -254,9 +254,9 @@ After that, the server validates the owner's response, completes the identity bi
 ~~~~
 *Figure 4: Server-Mediated Model*
 
-* Typical Application Scenarios: This model is suitable for scenarios requiring independent and real-time confirmation from an owner who is not involved in the initial request path. For instance, an agent is hosted by a third-party service provider, while the organization using the agent remains accountable for its operation. When the agent requests an identity credential, the server initiates an out-of-band verification directly with the administrative center.
+* Typical Application Scenarios: This model is suitable for scenarios requiring independent and real-time confirmation from an owner who is not involved in the initial request path. For instance, an agent is hosted by a third-party service provider, while the organization providing the agent remains accountable for its operation. When the agent requests an identity credential, the server initiates an out-of-band verification directly with the administrative center.
 
-* Attack Surface: The primary risk lies in the out-of-band channel. Without nonces or mutual authentication, an attacker could intercept this channel to perform response forgery or replay attacks.
+* Attack Surface: The primary risk lies in the out-of-band channel. Without nonces or mutual authentication, an attacker could impersonate the owner or replay a previous confirmation response.
 
 ## Hardware Root of Trust
 The owner can leverage the hardware root of trust to generate cryptographic signatures, thus binding an agent to a specific hardware device. Consequently, the above issuance models allow multiple virtual agent identities to be derived from a single hardware root of trust.
