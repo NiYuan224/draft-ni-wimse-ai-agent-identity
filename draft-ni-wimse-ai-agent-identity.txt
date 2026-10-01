@@ -126,8 +126,8 @@ Table of Contents
       operation.
 
    *  Automated Credential Management: An automated mechanism is
-      necessary for managing credentials with reduced validity period to
-      minimize security exposure.
+      necessary for managing credentials with reduced validity periods
+      to minimize security exposure.
 
    *  Minimal Privileged Access Tokens: AI agents should have task-
       oriented, fine-grained access tokens with short validity periods.
@@ -297,7 +297,7 @@ Table of Contents
       organization before issuing the credential.
 
    *  Interaction: When an agent accesses another agent or a service
-      across organizational boundaries, A dual-identity credential
+      across organizational boundaries, a dual-identity credential
       allows the receiving entity to identify both the agent and the
       organization accountable for it, providing stronger accountability
       and traceability for cross-organization interactions.
@@ -380,7 +380,7 @@ Table of Contents
 
    Such a mechanism is integrated into the basic architecture as shown
    in Figure 3.  First, the agent generates and signs an identity
-   credential request and sends it to the proxy(step 1), then：
+   credential request and sends it to the proxy (step 1), then：
 
    a.  The proxy intercepts the request and relays it to the owner for
    administrative inspection.

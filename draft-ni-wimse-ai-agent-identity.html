@@ -1255,7 +1255,7 @@ svg {
           <p id="section-1-5.1.1">Independent, Trustworthy Identities: AI agents should have independent and trustworthy identities and credentials, distinct from those of devices and users. This allows the AI agent to act as an independently identifiable workload while maintaining a verifiable relationship with the entity accountable for its operation.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-5.2">
-          <p id="section-1-5.2.1">Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity period to minimize security exposure.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-5.2.1">Automated Credential Management: An automated mechanism is necessary for managing credentials with reduced validity periods to minimize security exposure.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-5.3">
           <p id="section-1-5.3.1">Minimal Privileged Access Tokens: AI agents should have task-oriented, fine-grained access tokens with short validity periods.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
@@ -1294,7 +1294,7 @@ svg {
           <p id="section-2-5.1.1">Owner: An entity (individual or organization) accountable for the operation of an agent and capable of providing a cryptographic signature to establish a verifiable relationship with the agent identity. The owner's approval may be provided through mechanisms such as manual confirmation, a hardware security module, or an automated policy engine based on pre-defined security policies.<a href="#section-2-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-5.2">
-          <p id="section-2-5.2.1">Dual-Identity Credential:  A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.<a href="#section-2-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-5.2.1">Dual-Identity Credential: A credential that contains the identifiers and associated public keys of both an agent and its owner. The credential is cryptographically bound to both entities.<a href="#section-2-5.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1392,7 +1392,7 @@ svg {
               <p id="section-4.1.2-2.1.1">Issuance: When an agent requests an identity credential, the identity server may require organizational oversight. By requiring the accountable organization to approve the credential request, the server can establish a cryptographically verifiable relationship between the agent identity and the accountable organization before issuing the credential.<a href="#section-4.1.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.1.2-2.2">
-              <p id="section-4.1.2-2.2.1">Interaction: When an agent accesses another agent or a service across organizational boundaries, A dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.<a href="#section-4.1.2-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.1.2-2.2.1">Interaction: When an agent accesses another agent or a service across organizational boundaries, a dual-identity credential allows the receiving entity to identify both the agent and the organization accountable for it, providing stronger accountability and traceability for cross-organization interactions.<a href="#section-4.1.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1450,7 +1450,7 @@ svg {
 <a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-owner-mediated-gateway-mode" class="section-name selfRef">Owner-Mediated (Gateway Mode)</a>
           </h4>
 <p id="section-4.2.2-1">In this model, the owner acts as the supervisory gatekeeper between the proxy and the server. It inspects requests relayed by the proxy to ensure compliance with organizational policies, providing cryptographic binding only after approval.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.2-2">Such a mechanism is integrated into the basic architecture as shown in Figure 3. First, the agent generates and signs an identity credential request and sends it to the proxy(step 1), then：<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-2">Such a mechanism is integrated into the basic architecture as shown in Figure 3. First, the agent generates and signs an identity credential request and sends it to the proxy (step 1), then：<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-3">a. The proxy intercepts the request and relays it to the owner for administrative inspection.<a href="#section-4.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-4">b. The owner reviews and countersigns the request. It then forwards the countersigned request to the server.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-5">c. The server verifies both signatures and issues the dual-identity credential back to the owner, who then dispatches it to the proxy.<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
