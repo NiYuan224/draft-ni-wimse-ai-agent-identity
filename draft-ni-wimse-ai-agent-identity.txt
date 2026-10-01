@@ -5,9 +5,9 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 3 April 2027                                      M. Richardson
+Expires: 4 April 2027                                      M. Richardson
                                                 Sandelman Software Works
-                                                       30 September 2026
+                                                          1 October 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -48,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2027.
+   This Internet-Draft will expire on 4 April 2027.
 
 Copyright Notice
 
@@ -139,7 +139,7 @@ Table of Contents
 
    This document discusses the possibility of using WIMSE architecture
    to provide AI agent identities and credentials.  It accords with the
-   original WIMSE use case in Section 3.3.1 Bootstrapping Workload
+   original WIMSE use case in Section 3.4.1 Bootstrapping Workload
    Identifiers and Credentials of [I-D.ietf-wimse-arch].  We also
    discuss requirements for extending the WIMSE architecture to bind an
    AI agent identity to the identity of an accountable user or
@@ -297,13 +297,10 @@ Table of Contents
       organization before issuing the credential.
 
    *  Interaction: When an agent accesses another agent or a service
-      across organizational boundaries, authentication is necessary to
-      ensure the request is from a valid entity, as illustrated in the
-      WIMSE architecture[I-D.ietf-wimse-arch].  A dual-identity
-      credential allows the receiving entity to identify both the agent
-      and the organization accountable for it, providing stronger
-      accountability and traceability for cross-organization
-      interactions.
+      across organizational boundaries, A dual-identity credential
+      allows the receiving entity to identify both the agent and the
+      organization accountable for it, providing stronger accountability
+      and traceability for cross-organization interactions.
 
 4.2.  Issuance Models
 
@@ -389,8 +386,7 @@ Table of Contents
    administrative inspection.
 
    b.  The owner reviews and countersigns the request.  It then forwards
-   the countersigned request to the server, along with additional
-   organizational materials, such as an organizational credential.
+   the countersigned request to the server.
 
    c.  The server verifies both signatures and issues the dual-identity
    credential back to the owner, who then dispatches it to the proxy.
@@ -435,12 +431,10 @@ Table of Contents
 
    *  Attack Surface: The owner becomes a high-value target and a single
       point of failure.  If it is compromised, an attacker can forge
-      approvals for any agent across the managed proxies.  To mitigate
-      this, mutual authentication and cryptographic integrity are
-      mandatory between proxies and the owner.  Furthermore, as a
-      centralized gateway, the owner is vulnerable to Denial-of-Service
-      attacks.  It is essential to implement rate limiting and request
-      queuing.
+      approvals for any agent across the managed proxies.  Furthermore,
+      as a centralized gateway, the owner is vulnerable to Denial-of-
+      Service attacks.  It is essential to implement rate limiting and
+      request queuing.
 
 4.2.3.  Server-Mediated (Challenge-Response)
 
@@ -485,15 +479,14 @@ Table of Contents
       scenarios requiring independent and real-time confirmation from an
       owner who is not involved in the initial request path.  For
       instance, an agent is hosted by a third-party service provider,
-      while the organization using the agent remains accountable for its
-      operation.  When the agent requests an identity credential, the
-      server initiates an out-of-band verification directly with the
+      while the organization providing the agent remains accountable for
+      its operation.  When the agent requests an identity credential,
+      the server initiates an out-of-band verification directly with the
       administrative center.
 
    *  Attack Surface: The primary risk lies in the out-of-band channel.
       Without nonces or mutual authentication, an attacker could
-      intercept this channel to perform response forgery or replay
-      attacks.
+      impersonate the owner or replay a previous confirmation response.
 
 4.3.  Hardware Root of Trust
 
