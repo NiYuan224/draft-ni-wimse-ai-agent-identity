@@ -36,6 +36,14 @@ author:
     fullname: Michael Richardson
     organization: Sandelman Software Works
     email:	mcr+ietf@sandelman.ca
+ 
+ -
+    fullname: Bingzheng Wang
+    organization: CESI
+    email: wangbz@cesi.cn 
+
+
+    
 
 
 normative:
