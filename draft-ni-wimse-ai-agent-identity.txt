@@ -5,9 +5,11 @@
 Workload Identity in Multi System Environments                     Y. Ni
 Internet-Draft                                                 C. P. Liu
 Intended status: Informational                                    Huawei
-Expires: 4 April 2027                                      M. Richardson
+Expires: 25 April 2027                                     M. Richardson
                                                 Sandelman Software Works
-                                                          1 October 2026
+                                                                 B. Wang
+                                                                    CESI
+                                                         22 October 2026
 
 
                    WIMSE Applicability for AI Agents
@@ -48,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 April 2027.
+   This Internet-Draft will expire on 25 April 2027.
 
 Copyright Notice
 
@@ -556,3 +558,8 @@ Authors' Addresses
    Michael Richardson
    Sandelman Software Works
    Email: mcr+ietf@sandelman.ca
+
+
+   Bingzheng Wang
+   CESI
+   Email: wangbz@cesi.cn
