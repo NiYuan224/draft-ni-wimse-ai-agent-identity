@@ -40,10 +40,10 @@ author:
  -
     fullname: Bingzheng Wang
     organization: CESI
-    email: wangbz@cesi.cn 
+    email: wangbz@cesi.cn
 
 
-    
+
 
 
 normative:
